@@ -1,0 +1,13 @@
+# Virtual Environment
+env/
+venv/
+
+# Secrets
+.env
+
+# Python junk
+__pycache__/
+*.pyc
+
+# Database (jika pakai sqlite lokal)
+db.sqlite3
