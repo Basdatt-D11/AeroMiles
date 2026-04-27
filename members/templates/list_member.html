@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Kelola Member{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Kelola Member</h3>
+    <button class="btn btn-primary">+ Tambah Member</button>
+</div>
+
+<div class="row g-2 mb-3">
+    <div class="col-md-9">
+        <input type="text" class="form-control" placeholder="Cari nama, email, atau nomor member...">
+    </div>
+    <div class="col-md-3">
+        <select class="form-select">
+            <option>Semua Tier</option>
+            <option>Gold</option>
+            <option>Silver</option>
+            <option>Blue</option>
+        </select>
+    </div>
+</div>
+
+<table class="table table-hover border">
+    <thead class="table-light">
+        <tr>
+            <th>No. Member</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Tier</th>
+            <th>Total Miles</th>
+            <th>Award Miles</th>
+            <th>Bergabung</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>M0001</strong></td>
+            <td>Mr. John William Doe</td>
+            <td>john@example.com</td>
+            <td><span class="badge bg-warning text-dark">Gold</span></td>
+            <td>45,000</td>
+            <td>32,000</td>
+            <td>2024-01-15</td>
+            <td>
+                <button class="btn btn-sm btn-light">✏</button>
+                <button class="btn btn-sm btn-light text-danger">🗑</button>
+            </td>
+        </tr>
+        </tbody>
+</table>
+{% endblock %}

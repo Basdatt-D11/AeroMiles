@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 700px;">
+    <div class="card-header bg-white"><strong>Tambah Member Baru</strong></div>
+    <div class="card-body">
+        <form class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" placeholder="john@example.com">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Salutation</label>
+                <select class="form-select"><option>Mr.</option><option>Ms.</option></select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Nama Depan</label>
+                <input type="text" class="form-control" value="John">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Nama Tengah</label>
+                <input type="text" class="form-control" value="William">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Nama Belakang</label>
+                <input type="text" class="form-control" value="Doe">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Kewarganegaraan</label>
+                <select class="form-select"><option>Indonesia</option></select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Tier</label>
+                <select class="form-select"><option>Blue</option><option>Gold</option></select>
+            </div>
+            <div class="col-12 text-end">
+                <button type="button" class="btn btn-primary px-4">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
