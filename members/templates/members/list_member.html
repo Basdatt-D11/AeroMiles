@@ -1,0 +1,217 @@
+{% extends 'members/base.html' %}
+{% block title %}Kelola Member{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Kelola Member</h3>
+    <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addMemberModal">
+        + Tambah Member
+    </button>
+</div>
+
+<div class="row g-2 mb-3">
+    <div class="col-md-9">
+        <input type="text" class="form-control" placeholder="Cari nama, email, atau nomor member...">
+    </div>
+    <div class="col-md-3">
+        <select class="form-select">
+            <option>Semua Tier</option>
+            <option>Gold</option>
+            <option>Silver</option>
+            <option>Blue</option>
+        </select>
+    </div>
+</div>
+
+<div class="table-container">
+    <table class="table table-hover m-0">
+        <thead>
+            <tr>
+                <th class="ps-4">No. Member</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Tier</th>
+                <th>Total Miles</th>
+                <th>Award Miles</th>
+                <th>Bergabung</th>
+                <th class="text-center pe-4">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="ps-4"><strong>M0001</strong></td>
+                <td>Mr. John William Doe</td>
+                <td>john@example.com</td>
+                <td><span class="badge bg-warning text-dark">Gold</span></td>
+                <td>45,000</td>
+                <td>32,000</td>
+                <td>2024-01-15</td>
+                <td class="text-center pe-4">
+                    <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
+                        data-bs-target="#editMemberModal">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-light btn-action text-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteMemberModal">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pt-4 px-4 pb-0">
+                <h5 class="modal-title fw-bold">Tambah Member Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Email</label>
+                        <input type="email" class="form-control bg-light border-0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Password</label>
+                        <input type="password" class="form-control bg-light border-0">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label small fw-bold text-muted">Salutation</label>
+                        <select class="form-select bg-light border-0">
+                            <option>Mr.</option>
+                            <option>Ms.</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Nama Depan</label>
+                        <input type="text" class="form-control bg-light border-0">
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Nama Belakang</label>
+                        <input type="text" class="form-control bg-light border-0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Kewarganegaraan</label>
+                        <select class="form-select bg-light border-0">
+                            <option>Indonesia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Country Code</label>
+                        <select class="form-select bg-light border-0">
+                            <option>+62</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Nomor HP</label>
+                        <input type="text" class="form-control bg-light border-0">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-muted">Tanggal Lahir</label>
+                        <input type="date" class="form-control bg-light border-0" value="1976-01-12">
+                    </div>
+                </div>
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary px-4 fw-bold"
+                        style="background-color: #041e42;">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editMemberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pt-4 px-4 pb-0">
+                <h5 class="modal-title fw-bold" style="font-family: 'Poppins';">Edit Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-muted">Salutation</label>
+                            <select class="form-select bg-light border-0">
+                                <option selected>Mr.</option>
+                                <option>Ms.</option>
+                                <option>Mrs.</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Nama Depan</label>
+                            <input type="text" class="form-control bg-light border-0" value="John">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Nama Tengah</label>
+                            <input type="text" class="form-control bg-light border-0" value="William">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Nama Belakang</label>
+                            <input type="text" class="form-control bg-light border-0" value="Doe">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Kewarganegaraan</label>
+                            <select class="form-select bg-light border-0">
+                                <option selected>Indonesia</option>
+                                <option>Luar Negeri</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-muted">Country Code</label>
+                            <select class="form-select bg-light border-0">
+                                <option selected>+62</option>
+                                <option>+1</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label small fw-bold text-muted">Nomor HP</label>
+                            <input type="text" class="form-control bg-light border-0" value="81234567890">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Tanggal Lahir</label>
+                            <input type="date" class="form-control bg-light border-0" value="1990-05-15">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">Tier</label>
+                            <select class="form-select bg-light border-0">
+                                <option selected>Gold</option>
+                                <option>Silver</option>
+                                <option>Blue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary px-5 fw-bold"
+                            style="background-color: #041e42; border-radius: 8px;">Simpan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteMemberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px; border: none;">
+            <div class="modal-body p-4">
+                <h5 class="fw-bold mb-3">Hapus Member?</h5>
+                <p class="text-muted" style="font-size: 0.9rem;">
+                    Semua data terkait (Identitas, Klaim, Transfer, Redeem) akan ikut terhapus. Tindakan ini tidak dapat
+                    dibatalkan.
+                </p>
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary px-4" style="background-color: #041e42;">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
