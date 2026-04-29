@@ -1,0 +1,390 @@
+{% extends 'members/base.html' %}
+{% block title %}Kelola Hadiah & Penyedia{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between items-center mb-4 mt-3">
+    <h3 class="fw-bold m-0">Kelola Hadiah & Penyedia</h3>
+    <button class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="bi bi-plus"></i> Tambah Hadiah
+    </button>
+</div>
+
+<!-- Main Card for Table -->
+<div class="card shadow-sm border-0 mb-5" style="border-radius: 12px;">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="hadiahTable">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4 py-3 fw-semibold border-bottom-0">Kode</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Nama</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Deskripsi</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Penyedia</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Miles</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Periode</th>
+                        <th class="pe-4 py-3 fw-semibold border-bottom-0 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for h in hadiah_list %}
+                    <tr id="row-{{ h.kode }}">
+                        <td class="ps-4 fw-bold text-dark">{{ h.kode }}</td>
+                        <td class="fw-semibold text-dark">{{ h.nama }}</td>
+                        <td class="text-muted small text-truncate" style="max-width: 200px;">{{ h.deskripsi }}</td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-semibold text-dark">{{ h.penyedia }}</span>
+                                <span class="badge rounded-pill border text-dark fw-normal bg-light">{{ h.tipe_penyedia }}</span>
+                            </div>
+                        </td>
+                        <td class="fw-bold text-dark">{{ h.miles }}</td>
+                        <td class="text-muted small">
+                            <span class="start-date">{{ h.valid_start }}</span> &mdash; <span class="end-date">{{ h.program_end }}</span>
+                        </td>
+                        <td class="pe-4 text-center">
+                            <button class="btn btn-sm btn-link text-secondary p-1 edit-btn" title="Edit" 
+                                data-kode="{{ h.kode }}" 
+                                data-nama="{{ h.nama }}"
+                                data-deskripsi="{{ h.deskripsi }}"
+                                data-penyedia="{{ h.penyedia }}"
+                                data-tipe="{{ h.tipe_penyedia }}"
+                                data-miles="{{ h.miles }}"
+                                data-start="{{ h.valid_start }}"
+                                data-end="{{ h.program_end }}"
+                                data-bs-toggle="modal" data-bs-target="#editModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-link text-danger p-1 delete-btn" title="Hapus"
+                                data-kode="{{ h.kode }}"
+                                data-end="{{ h.program_end }}"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah Hadiah -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Tambah Hadiah Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Nama Hadiah</label>
+                            <input type="text" id="addNama" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Penyedia</label>
+                            <select id="addPenyedia" class="form-select" required>
+                                <option value="" selected disabled>Pilih penyedia</option>
+                                <option value="Garuda Indonesia|airline">Garuda Indonesia (airline)</option>
+                                <option value="TravelokaPartner|partner">TravelokaPartner (partner)</option>
+                                <option value="Plaza Premium|partner">Plaza Premium (partner)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Miles Dibutuhkan</label>
+                            <input type="number" id="addMiles" class="form-control" required min="1">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Deskripsi</label>
+                            <textarea id="addDeskripsi" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Valid Start</label>
+                            <input type="date" id="addStart" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Program End</label>
+                            <input type="date" id="addEnd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div id="addAlert" class="alert d-none mt-3 mb-0 py-2 small"></div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Hadiah -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Edit Hadiah</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold small">Kode Hadiah</label>
+                            <input type="text" id="editKode" class="form-control bg-light" disabled>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label fw-semibold small">Nama Hadiah</label>
+                            <input type="text" id="editNama" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Penyedia</label>
+                            <select id="editPenyedia" class="form-select" required>
+                                <option value="Garuda Indonesia|airline">Garuda Indonesia (airline)</option>
+                                <option value="TravelokaPartner|partner">TravelokaPartner (partner)</option>
+                                <option value="Plaza Premium|partner">Plaza Premium (partner)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Miles Dibutuhkan</label>
+                            <input type="number" id="editMiles" class="form-control" required min="1">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Deskripsi</label>
+                            <textarea id="editDeskripsi" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Valid Start</label>
+                            <input type="date" id="editStart" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Program End</label>
+                            <input type="date" id="editEnd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div id="editAlert" class="alert d-none mt-3 mb-0 py-2 small"></div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Hapus Hadiah -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-body p-4 text-center">
+                <h5 class="fw-bold mb-3 text-start">Hapus Hadiah?</h5>
+                <p class="text-muted small text-start mb-4">Jika hadiah sudah pernah di-redeem oleh Member, riwayat redeem akan terpengaruh.</p>
+                <div id="deleteAlert" class="alert d-none py-2 small text-start"></div>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light border fw-semibold" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A;">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let globalCounter = 5; // Start RWD counter at 5
+    let currentDeleteKode = null;
+    let currentDeleteEnd = null;
+    let currentDeleteRow = null;
+
+    // --- Create Feature ---
+    const addForm = document.getElementById('addForm');
+    const addAlert = document.getElementById('addAlert');
+    const tbody = document.querySelector('#hadiahTable tbody');
+
+    addForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        addAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+
+        if (!addForm.checkValidity()) {
+            addAlert.textContent = 'Harap lengkapi semua kolom yang wajib diisi.';
+            addAlert.className = 'alert alert-danger mt-3 mb-0 py-2 small';
+            return;
+        }
+
+        const nama = document.getElementById('addNama').value;
+        const penyediaParts = document.getElementById('addPenyedia').value.split('|');
+        const penyedia = penyediaParts[0];
+        const tipe = penyediaParts[1];
+        const miles = document.getElementById('addMiles').value;
+        const desc = document.getElementById('addDeskripsi').value;
+        const start = document.getElementById('addStart').value;
+        const end = document.getElementById('addEnd').value;
+
+        // Generate Kode
+        const newKode = 'RWD-' + String(globalCounter).padStart(3, '0');
+        globalCounter++;
+
+        // Add to table
+        const tr = document.createElement('tr');
+        tr.id = 'row-' + newKode;
+        tr.innerHTML = `
+            <td class="ps-4 fw-bold text-dark">${newKode}</td>
+            <td class="fw-semibold text-dark">${nama}</td>
+            <td class="text-muted small text-truncate" style="max-width: 200px;">${desc}</td>
+            <td>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fw-semibold text-dark">${penyedia}</span>
+                    <span class="badge rounded-pill border text-dark fw-normal bg-light">${tipe}</span>
+                </div>
+            </td>
+            <td class="fw-bold text-dark">${miles}</td>
+            <td class="text-muted small">
+                <span class="start-date">${start}</span> &mdash; <span class="end-date">${end}</span>
+            </td>
+            <td class="pe-4 text-center">
+                <button class="btn btn-sm btn-link text-secondary p-1 edit-btn" title="Edit" 
+                    data-kode="${newKode}" data-nama="${nama}" data-deskripsi="${desc}"
+                    data-penyedia="${penyedia}" data-tipe="${tipe}" data-miles="${miles}"
+                    data-start="${start}" data-end="${end}"
+                    data-bs-toggle="modal" data-bs-target="#editModal">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-link text-danger p-1 delete-btn" title="Hapus"
+                    data-kode="${newKode}" data-end="${end}"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+
+        // Attach event listeners to new buttons
+        attachRowEvents(tr);
+
+        addAlert.textContent = 'Hadiah berhasil ditambahkan.';
+        addAlert.className = 'alert alert-success mt-3 mb-0 py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+            modal.hide();
+            addForm.reset();
+            addAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+        }, 1000);
+    });
+
+    // --- Update Feature ---
+    const editModalEl = document.getElementById('editModal');
+    const editForm = document.getElementById('editForm');
+    const editAlert = document.getElementById('editAlert');
+    let currentEditKode = null;
+
+    editModalEl.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        currentEditKode = btn.getAttribute('data-kode');
+        document.getElementById('editKode').value = currentEditKode;
+        document.getElementById('editNama').value = btn.getAttribute('data-nama');
+        document.getElementById('editPenyedia').value = btn.getAttribute('data-penyedia') + '|' + btn.getAttribute('data-tipe');
+        document.getElementById('editMiles').value = btn.getAttribute('data-miles');
+        document.getElementById('editDeskripsi').value = btn.getAttribute('data-deskripsi');
+        document.getElementById('editStart').value = btn.getAttribute('data-start');
+        document.getElementById('editEnd').value = btn.getAttribute('data-end');
+        editAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+    });
+
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        editAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+
+        if (!editForm.checkValidity()) {
+            editAlert.textContent = 'Harap lengkapi semua kolom yang wajib diisi.';
+            editAlert.className = 'alert alert-danger mt-3 mb-0 py-2 small';
+            return;
+        }
+
+        const nama = document.getElementById('editNama').value;
+        const penyediaParts = document.getElementById('editPenyedia').value.split('|');
+        const penyedia = penyediaParts[0];
+        const tipe = penyediaParts[1];
+        const miles = document.getElementById('editMiles').value;
+        const desc = document.getElementById('editDeskripsi').value;
+        const start = document.getElementById('editStart').value;
+        const end = document.getElementById('editEnd').value;
+
+        // Update Table Row
+        const tr = document.getElementById('row-' + currentEditKode);
+        if (tr) {
+            tr.querySelector('td:nth-child(2)').textContent = nama;
+            tr.querySelector('td:nth-child(3)').textContent = desc;
+            tr.querySelector('td:nth-child(4) .fw-semibold').textContent = penyedia;
+            tr.querySelector('td:nth-child(4) .badge').textContent = tipe;
+            tr.querySelector('td:nth-child(5)').textContent = miles;
+            tr.querySelector('.start-date').textContent = start;
+            tr.querySelector('.end-date').textContent = end;
+
+            // Update button data attributes
+            const editBtn = tr.querySelector('.edit-btn');
+            editBtn.setAttribute('data-nama', nama);
+            editBtn.setAttribute('data-deskripsi', desc);
+            editBtn.setAttribute('data-penyedia', penyedia);
+            editBtn.setAttribute('data-tipe', tipe);
+            editBtn.setAttribute('data-miles', miles);
+            editBtn.setAttribute('data-start', start);
+            editBtn.setAttribute('data-end', end);
+
+            const deleteBtn = tr.querySelector('.delete-btn');
+            deleteBtn.setAttribute('data-end', end);
+        }
+
+        editAlert.textContent = 'Hadiah berhasil diperbarui.';
+        editAlert.className = 'alert alert-success mt-3 mb-0 py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(editModalEl);
+            modal.hide();
+        }, 1000);
+    });
+
+    // --- Delete Feature ---
+    const deleteModalEl = document.getElementById('deleteModal');
+    const deleteAlert = document.getElementById('deleteAlert');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+    deleteModalEl.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        currentDeleteKode = btn.getAttribute('data-kode');
+        currentDeleteEnd = btn.getAttribute('data-end');
+        currentDeleteRow = document.getElementById('row-' + currentDeleteKode);
+        deleteAlert.className = 'alert d-none py-2 small';
+    });
+
+    confirmDeleteBtn.addEventListener('click', function() {
+        // Validation: Can only delete if period has ended (Program End < Today)
+        const endDate = new Date(currentDeleteEnd);
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        if (endDate >= today) {
+            deleteAlert.textContent = 'Gagal menghapus. Hadiah ini masih dalam periode berlaku!';
+            deleteAlert.className = 'alert alert-danger py-2 small';
+            return;
+        }
+
+        if (currentDeleteRow) {
+            currentDeleteRow.remove();
+        }
+        
+        deleteAlert.textContent = 'Hadiah berhasil dihapus.';
+        deleteAlert.className = 'alert alert-success py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(deleteModalEl);
+            modal.hide();
+        }, 1000);
+    });
+
+    function attachRowEvents(row) {
+        // Nothing special needed since Bootstrap uses data-bs-toggle delegation or handles it directly on elements,
+        // but since we update attributes, we just need to make sure the modal picks them up (handled by show.bs.modal).
+    }
+});
+</script>
+{% endblock %}
