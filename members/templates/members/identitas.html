@@ -1,0 +1,61 @@
+{% extends 'members/base.html' %}
+{% block title %}Identitas Saya{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold">Identitas Saya</h3>
+    <button class="btn btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#addIdentitasModal">
+        + Tambah Identitas
+    </button>
+</div>
+
+<!-- Tabel Identitas (Rounded) -->
+<div class="table-container">
+    <table class="table table-hover m-0">
+        <thead>
+            <tr>
+                <th class="ps-4">No. Dokumen</th>
+                <th>Jenis</th>
+                <th>Negara</th>
+                <th>Terbit</th>
+                <th>Habis</th>
+                <th>Status</th>
+                <th class="text-center pe-4">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="ps-4"><strong>A12345678</strong></td>
+                <td>Paspor</td>
+                <td>Indonesia</td>
+                <td>2020-01-15</td>
+                <td>2030-01-15</td>
+                <td><span class="badge bg-success">Aktif</span></td>
+                <td class="text-center pe-4">
+                    <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
+                        data-bs-target="#editModal1"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light btn-action text-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteIdentitasModal"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td class="ps-4"><strong>3275012345678901</strong></td>
+                <td>KTP</td>
+                <td>Indonesia</td>
+                <td>2019-06-01</td>
+                <td>2024-06-01</td>
+                <td><span class="badge bg-danger">Kedaluwarsa</span></td>
+                <td class="text-center pe-4">
+                    <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
+                        data-bs-target="#editModal2"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light btn-action text-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteIdentitasModal"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% include 'members/modals_identitas.html' %}
+
+{% endblock %}

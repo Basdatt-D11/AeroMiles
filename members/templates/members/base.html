@@ -205,7 +205,8 @@
                 </a>
 
                 {% elif role == "Member" %}
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero {% if request.resolver_match.url_name == 'list_identitas' %}active-dashboard{% endif %}"
+                    href="{% url 'list_identitas' %}">
                     <i class="bi bi-file-earmark-person-fill"></i>
                     <span class="nav-text">Identitas Saya</span>
                 </a>

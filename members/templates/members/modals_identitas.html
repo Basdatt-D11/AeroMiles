@@ -1,0 +1,151 @@
+<div class="modal fade" id="addIdentitasModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pt-4 px-4 pb-0">
+                <h5 class="modal-title fw-bold">Tambah Identitas Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">Nomor Dokumen</label>
+                    <input type="text" class="form-control bg-light border-0" placeholder="A12345678">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">Jenis Dokumen</label>
+                    <select class="form-select bg-light border-0">
+                        <option selected>Paspor</option>
+                        <option>KTP</option>
+                        <option>SIM</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted">Negara Penerbit</label>
+                    <select class="form-select bg-light border-0">
+                        <option selected>Indonesia</option>
+                    </select>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <label class="form-label small fw-bold text-muted">Tanggal Terbit</label>
+                        <input type="date" class="form-control bg-light border-0" value="2020-01-15">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label small fw-bold text-muted">Tanggal Habis</label>
+                        <input type="date" class="form-control bg-light border-0 value="2030-01-15">
+                    </div>
+                </div>
+                <div class="text-end mt-4">
+                    <button class="btn btn-primary px-4 fw-bold">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteIdentitasModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px; border: none;">
+            <div class="modal-body p-4 text-start">
+                <h5 class="fw-bold mb-2">Hapus Identitas?</h5>
+                <p class="text-muted small mb-4">Tindakan ini tidak dapat dibatalkan.</p>
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-light px-4" data-bs-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary px-4">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pt-4 px-4 pb-0">
+                <h5 class="modal-title fw-bold">Edit Identitas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nomor Dokumen</label>
+                        <input type="text" class="form-control bg-light border-0" value="3275012345678901" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Jenis Dokumen</label>
+                        <select class="form-select bg-light border-0">
+                            <option>Paspor</option>
+                            <option selected>KTP</option>
+                            <option>SIM</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Negara Penerbit</label>
+                        <select class="form-select bg-light border-0">
+                            <option selected>Indonesia</option>
+                        </select>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Tanggal Terbit</label>
+                            <input type="date" class="form-control bg-light border-0" value="2019-06-01">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Tanggal Habis</label>
+                            <input type="date" class="form-control bg-light border-0" value="2024-06-01">
+                        </div>
+                    </div>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4 fw-bold">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: none;">
+            <div class="modal-header border-0 pt-4 px-4 pb-0">
+                <h5 class="modal-title fw-bold">Edit Identitas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nomor Dokumen</label>
+                        <input type="text" class="form-control bg-light border-0" value="A12345678" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Jenis Dokumen</label>
+                        <select class="form-select bg-light border-0">
+                            <option selected>Paspor</option>
+                            <option>KTP</option>
+                            <option>SIM</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Negara Penerbit</label>
+                        <select class="form-select bg-light border-0">
+                            <option selected>Indonesia</option>
+                        </select>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Tanggal Terbit</label>
+                            <input type="date" class="form-control bg-light border-0" value="2020-01-15
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Tanggal Habis</label>
+                            <input type="date" class="form-control bg-light border-0" value="2030-01-15">
+                        </div>
+                    </div>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4 fw-bold">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
