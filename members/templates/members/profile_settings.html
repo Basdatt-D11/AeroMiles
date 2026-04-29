@@ -1,0 +1,236 @@
+{% extends 'members/base.html' %}
+{% block title %}Pengaturan Profil{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <h3 class="fw-bold mb-4 text-center mt-3">Pengaturan Profil</h3>
+        
+        <!-- Data Profil Card -->
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
+            <div class="card-body p-4 p-md-5">
+                <h5 class="fw-bold mb-4">Data Profil</h5>
+                <form id="profileForm" novalidate>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Email</label>
+                        <input type="email" class="form-control bg-light" value="{{ email }}" disabled>
+                    </div>
+
+                    {% if role == 'Member' %}
+                    <!-- Nomor Member & Tanggal Bergabung -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Nomor Member</label>
+                            <input type="text" class="form-control bg-light" value="M0001" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Tanggal Bergabung</label>
+                            <input type="text" class="form-control bg-light" value="2024-01-15" disabled>
+                        </div>
+                    </div>
+                    {% elif role == 'Staff' %}
+                    <!-- ID Staf -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">ID Staf</label>
+                        <input type="text" class="form-control bg-light" value="S0001" disabled>
+                    </div>
+                    {% endif %}
+
+                    <!-- Salutation -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Salutation</label>
+                            <select class="form-select" required>
+                                <option value="Mr." selected>Mr.</option>
+                                <option value="Mrs.">Mrs.</option>
+                                <option value="Ms.">Ms.</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Nama Depan & Tengah -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Nama Depan</label>
+                            <input type="text" class="form-control" value="{{ nama_depan }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Nama Tengah</label>
+                            <input type="text" class="form-control" value="William">
+                        </div>
+                    </div>
+
+                    <!-- Nama Belakang & Kewarganegaraan -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Nama Belakang</label>
+                            <input type="text" class="form-control" value="{{ nama_belakang }}" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Kewarganegaraan</label>
+                            <select class="form-select" required>
+                                <option value="Indonesia" selected>Indonesia</option>
+                                <option value="Singapore">Singapore</option>
+                                <option value="Malaysia">Malaysia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Country Code & Nomor HP -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Country Code</label>
+                            <select class="form-select" required>
+                                <option value="+62" selected>+62</option>
+                                <option value="+65">+65</option>
+                                <option value="+60">+60</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Nomor HP</label>
+                            <input type="text" class="form-control" value="81234567890" required>
+                        </div>
+                    </div>
+
+                    <!-- Tanggal Lahir & Kode Maskapai -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Tanggal Lahir</label>
+                            <input type="date" class="form-control" value="1990-05-15" required>
+                        </div>
+                        {% if role == 'Staff' %}
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small">Kode Maskapai</label>
+                            <select class="form-select" required>
+                                <option value="GA" selected>GA - Garuda Indonesia</option>
+                                <option value="JT">JT - Lion Air</option>
+                                <option value="QZ">QZ - AirAsia</option>
+                            </select>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Alert message container -->
+                    <div id="profileAlert" class="alert d-none"></div>
+
+                    <button type="submit" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; padding: 10px 20px;">Simpan Perubahan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ubah Password Card -->
+        <div class="card shadow-sm border-0 mb-5" style="border-radius: 12px;">
+            <div class="card-body p-4 p-md-5">
+                <h5 class="fw-bold mb-3">Ubah Password</h5>
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#passwordModal">Ubah Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ubah Password -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold" id="passwordModalLabel">Ubah Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="passwordForm" novalidate>
+                    <!-- Alert message container for password -->
+                    <div id="passwordAlert" class="alert d-none py-2 small"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Password Lama</label>
+                        <input type="password" id="oldPassword" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Password Baru</label>
+                        <input type="password" id="newPassword" class="form-control" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold small">Konfirmasi Password Baru</label>
+                        <input type="password" id="confirmNewPassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-auto" style="background-color: #1E3A8A; border-color: #1E3A8A; padding: 8px 24px;">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Profile Settings Form
+        const profileForm = document.getElementById('profileForm');
+        const profileAlert = document.getElementById('profileAlert');
+
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            profileAlert.className = 'alert d-none'; // reset
+
+            if (!profileForm.checkValidity()) {
+                profileAlert.textContent = 'Harap isi semua kolom wajib dengan format yang benar.';
+                profileAlert.className = 'alert alert-danger py-2 mt-3 small';
+                return;
+            }
+
+            // Simulate save success
+            profileAlert.textContent = 'Profil berhasil diperbarui.';
+            profileAlert.className = 'alert alert-success py-2 mt-3 small';
+        });
+
+        // Password Form
+        const passwordForm = document.getElementById('passwordForm');
+        const passwordAlert = document.getElementById('passwordAlert');
+        const oldPassword = document.getElementById('oldPassword');
+        const newPassword = document.getElementById('newPassword');
+        const confirmNewPassword = document.getElementById('confirmNewPassword');
+
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            passwordAlert.className = 'alert d-none py-2 small'; // reset
+
+            if (!passwordForm.checkValidity()) {
+                passwordAlert.textContent = 'Harap isi semua kolom password.';
+                passwordAlert.className = 'alert alert-danger py-2 small';
+                return;
+            }
+
+            // Simulate old password check
+            if (oldPassword.value !== '123456') { // Dummy correct old password
+                passwordAlert.textContent = 'Password lama salah.';
+                passwordAlert.className = 'alert alert-danger py-2 small';
+                return;
+            }
+
+            if (newPassword.value !== confirmNewPassword.value) {
+                passwordAlert.textContent = 'Password baru dan konfirmasi tidak cocok.';
+                passwordAlert.className = 'alert alert-danger py-2 small';
+                return;
+            }
+
+            if (newPassword.value === oldPassword.value) {
+                passwordAlert.textContent = 'Password baru tidak boleh sama dengan password lama.';
+                passwordAlert.className = 'alert alert-danger py-2 small';
+                return;
+            }
+
+            // Success
+            passwordAlert.textContent = 'Password berhasil diubah.';
+            passwordAlert.className = 'alert alert-success py-2 small';
+            
+            // Optional: close modal after 1.5 seconds
+            setTimeout(() => {
+                const modalEl = document.getElementById('passwordModal');
+                const modal = bootstrap.Modal.getInstance(modalEl);
+                if (modal) modal.hide();
+                passwordForm.reset();
+                passwordAlert.className = 'alert d-none py-2 small';
+            }, 1500);
+        });
+    });
+</script>
+{% endblock %}

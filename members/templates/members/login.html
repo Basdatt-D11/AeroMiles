@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroMiles - Login</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            primary: '#1E3A8A',
+                            primaryHover: '#172554',
+                            accent: '#60A5FA',
+                            iconBg: '#315891',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-brand-dark py-3">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-2 text-white font-bold text-lg">
+                <i class="bi bi-airplane text-brand-accent"></i> AeroMiles
+            </a>
+            <div class="flex gap-2">
+                <a href="{% url 'login_page' %}" class="flex items-center gap-2 px-4 py-2 text-white bg-white/10 rounded-md font-medium text-sm">
+                    <i class="bi bi-person"></i> Login
+                </a>
+                <a href="{% url 'register_page' %}" class="flex items-center gap-2 px-4 py-2 text-slate-400 font-medium text-sm hover:text-white transition-colors">
+                    <i class="bi bi-person-plus"></i> Registrasi
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="max-w-3xl mx-auto mt-12 text-center px-4">
+        <div class="w-16 h-16 bg-brand-iconBg text-white rounded-2xl inline-flex items-center justify-center text-3xl mb-4 shadow-sm">
+            <i class="bi bi-airplane"></i>
+        </div>
+        <h2 class="text-3xl font-bold mb-2 text-slate-900">Selamat Datang</h2>
+        <p class="text-slate-500 text-sm">Masuk ke akun AeroMiles Anda</p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="max-w-md mx-auto mb-16 mt-8 px-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 md:p-8">
+            <form id="loginForm" novalidate>
+                <h5 class="text-lg font-bold mb-1 text-slate-900">Login</h5>
+                <p class="text-slate-500 text-sm mb-6">Masukkan email dan password Anda</p>
+
+                <!-- Error Alert -->
+                <div id="errorAlert" class="hidden bg-red-50 text-red-600 border border-red-200 p-4 rounded-lg mb-6 text-sm flex items-center gap-2">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span id="errorMessage"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block font-semibold text-sm text-slate-800 mb-1.5">Email</label>
+                    <input type="email" id="email" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" placeholder="email@example.com" required>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block font-semibold text-sm text-slate-800 mb-1.5">Password</label>
+                    <input type="password" id="password" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-primary hover:bg-brand-primaryHover text-white font-medium py-3 px-4 rounded-lg transition-colors mb-6">
+                    Log In
+                </button>
+
+                <div class="text-center text-sm">
+                    <span class="text-slate-500">Belum punya akun?</span> 
+                    <a href="{% url 'register_page' %}" class="text-blue-600 font-semibold hover:underline">Daftar di sini</a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="mt-6 text-center text-xs text-slate-400">
+            <p>Demo Akses (Frontend only):</p>
+            <p>Member: john@example.com / 123456</p>
+            <p>Staf: staff@example.com / 123456</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                errorAlert.classList.add('hidden');
+
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+
+                // 1. Cek validasi form kosong
+                if (!email || !password) {
+                    errorMessage.textContent = 'Harap isi email dan password.';
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+
+                // 2. Simulasi Login
+                if (email === 'john@example.com' && password === '123456') {
+                    // Redirect ke Dashboard Member
+                    window.location.href = "{% url 'list_identitas' %}"; 
+                } else if (email === 'staff@example.com' && password === '123456') {
+                    // Redirect ke Dashboard Staff
+                    window.location.href = "{% url 'dashboard' %}"; 
+                } else {
+                    errorMessage.textContent = 'Email atau password salah. Silakan coba lagi.';
+                    errorAlert.classList.remove('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
