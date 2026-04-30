@@ -131,6 +131,78 @@ def profile_settings(request):
             'nama_belakang': 'Doe',
         }
     return render(request, 'members/profile_settings.html', context)
+
+
+def kelola_hadiah(request):
+    context = {
+        'role': 'Staff',
+        'nama': 'Mr. Admin Aero',
+        'hadiah_list': [
+            {
+                'kode': 'RWD-001',
+                'nama': 'Tiket Domestik PP',
+                'deskripsi': 'Tiket pulang-pergi rute domestik Indonesia',
+                'penyedia': 'Garuda Indonesia',
+                'tipe_penyedia': 'airline',
+                'miles': 15000,
+                'valid_start': '2024-01-01',
+                'program_end': '2025-12-31',
+            },
+            {
+                'kode': 'RWD-002',
+                'nama': 'Upgrade ke Business Class',
+                'deskripsi': 'Upgrade dari economy class ke business class',
+                'penyedia': 'Garuda Indonesia',
+                'tipe_penyedia': 'airline',
+                'miles': 25000,
+                'valid_start': '2024-01-01',
+                'program_end': '2025-12-31',
+            },
+            {
+                'kode': 'RWD-003',
+                'nama': 'Voucher Hotel Rp 500.000',
+                'deskripsi': 'Voucher hotel Jabodetabek',
+                'penyedia': 'TravelokaPartner',
+                'tipe_penyedia': 'partner',
+                'miles': 8000,
+                'valid_start': '2024-06-01',
+                'program_end': '2025-06-30',
+            },
+            {
+                'kode': 'RWD-004',
+                'nama': 'Akses Lounge 1x',
+                'deskripsi': 'Akses lounge seluruh bandara internasional',
+                'penyedia': 'Plaza Premium',
+                'tipe_penyedia': 'partner',
+                'miles': 3000,
+                'valid_start': '2024-01-01',
+                'program_end': '2025-12-31',
+            }
+        ]
+    }
+    return render(request, 'members/kelola_hadiah.html', context)
+
+
+def kelola_mitra(request):
+    context = {
+        'role': 'Staff',
+        'nama': 'Mr. Admin Aero',
+        'mitra_list': [
+            {
+                'email': 'partner@traveloka.com',
+                'id_penyedia': 'PYD-001',
+                'nama_mitra': 'TravelokaPartner',
+                'tanggal_kerja_sama': '2023-01-15'
+            },
+            {
+                'email': 'partner@plazapremium.com',
+                'id_penyedia': 'PYD-002',
+                'nama_mitra': 'Plaza Premium',
+                'tanggal_kerja_sama': '2023-06-01'
+            }
+        ]
+    }
+    return render(request, 'members/kelola_mitra.html', context)
 # Klaim views for Member
 def ajukan_klaim(request):
     member = Member.objects.filter(role='Member').first()  # Hardcode for demo

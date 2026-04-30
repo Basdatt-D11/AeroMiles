@@ -1,0 +1,287 @@
+{% extends 'members/base.html' %}
+{% block title %}Kelola Mitra{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between items-center mb-4 mt-3">
+    <h3 class="fw-bold m-0">Kelola Mitra</h3>
+    <button class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#addModal">
+        <i class="bi bi-plus"></i> Tambah Mitra
+    </button>
+</div>
+
+<!-- Main Card for Table -->
+<div class="card shadow-sm border-0 mb-5" style="border-radius: 12px;">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="mitraTable">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4 py-3 fw-semibold border-bottom-0">Email</th>
+                        <th class="py-3 fw-semibold border-bottom-0">ID Penyedia</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Nama Mitra</th>
+                        <th class="py-3 fw-semibold border-bottom-0">Tanggal Kerja Sama</th>
+                        <th class="pe-4 py-3 fw-semibold border-bottom-0 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for m in mitra_list %}
+                    <tr id="row-{{ m.id_penyedia }}">
+                        <td class="ps-4 fw-semibold text-dark email-col">{{ m.email }}</td>
+                        <td class="fw-bold text-dark">{{ m.id_penyedia }}</td>
+                        <td class="fw-semibold text-dark nama-col">{{ m.nama_mitra }}</td>
+                        <td class="text-muted small tgl-col">{{ m.tanggal_kerja_sama }}</td>
+                        <td class="pe-4 text-center">
+                            <button class="btn btn-sm btn-link text-secondary p-1 edit-btn" title="Edit" 
+                                data-id="{{ m.id_penyedia }}" 
+                                data-email="{{ m.email }}"
+                                data-nama="{{ m.nama_mitra }}"
+                                data-tgl="{{ m.tanggal_kerja_sama }}"
+                                data-bs-toggle="modal" data-bs-target="#editModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-sm btn-link text-danger p-1 delete-btn" title="Hapus"
+                                data-id="{{ m.id_penyedia }}"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tambah Mitra -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Tambah Mitra Baru</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Email Mitra</label>
+                            <input type="email" id="addEmail" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Nama Mitra</label>
+                            <input type="text" id="addNama" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Tanggal Kerja Sama</label>
+                            <input type="date" id="addTgl" class="form-control" required>
+                        </div>
+                    </div>
+                    <div id="addAlert" class="alert d-none mt-3 mb-0 py-2 small"></div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Mitra -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold">Edit Mitra</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Email Mitra</label>
+                            <!-- PK, Tidak bisa diedit -->
+                            <input type="email" id="editEmail" class="form-control bg-light" disabled>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Nama Mitra</label>
+                            <input type="text" id="editNama" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small">Tanggal Kerja Sama</label>
+                            <input type="date" id="editTgl" class="form-control" required>
+                        </div>
+                    </div>
+                    <div id="editAlert" class="alert d-none mt-3 mb-0 py-2 small"></div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A; border-radius: 8px;">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Hapus Mitra -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-body p-4 text-center">
+                <h5 class="fw-bold mb-3 text-start">Hapus Mitra?</h5>
+                <p class="text-muted small text-start mb-4">Penghapusan mitra akan berpengaruh pada hadiah yang disediakan oleh mitra ini.</p>
+                <div id="deleteAlert" class="alert d-none py-2 small text-start"></div>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-light border fw-semibold" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-primary" style="background-color: #1E3A8A; border-color: #1E3A8A;">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let globalCounter = 3; // Mulai counter untuk ID Penyedia baru
+    let currentDeleteId = null;
+    let currentDeleteRow = null;
+
+    // --- Create Feature ---
+    const addForm = document.getElementById('addForm');
+    const addAlert = document.getElementById('addAlert');
+    const tbody = document.querySelector('#mitraTable tbody');
+
+    addForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        addAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+
+        if (!addForm.checkValidity()) {
+            addAlert.textContent = 'Harap lengkapi semua kolom dengan format yang valid (termasuk format Email).';
+            addAlert.className = 'alert alert-danger mt-3 mb-0 py-2 small';
+            return;
+        }
+
+        const email = document.getElementById('addEmail').value;
+        const nama = document.getElementById('addNama').value;
+        const tgl = document.getElementById('addTgl').value;
+
+        // Cek duplicate email simulasi
+        const existingEmails = Array.from(document.querySelectorAll('.email-col')).map(td => td.textContent.trim());
+        if (existingEmails.includes(email)) {
+            addAlert.textContent = 'Email Mitra sudah terdaftar. Gunakan email lain.';
+            addAlert.className = 'alert alert-danger mt-3 mb-0 py-2 small';
+            return;
+        }
+
+        // Generate ID Penyedia
+        const newIdPenyedia = 'PYD-' + String(globalCounter).padStart(3, '0');
+        globalCounter++;
+
+        // Tambahkan ke tabel
+        const tr = document.createElement('tr');
+        tr.id = 'row-' + newIdPenyedia;
+        tr.innerHTML = `
+            <td class="ps-4 fw-semibold text-dark email-col">${email}</td>
+            <td class="fw-bold text-dark">${newIdPenyedia}</td>
+            <td class="fw-semibold text-dark nama-col">${nama}</td>
+            <td class="text-muted small tgl-col">${tgl}</td>
+            <td class="pe-4 text-center">
+                <button class="btn btn-sm btn-link text-secondary p-1 edit-btn" title="Edit" 
+                    data-id="${newIdPenyedia}" data-email="${email}" data-nama="${nama}" data-tgl="${tgl}"
+                    data-bs-toggle="modal" data-bs-target="#editModal">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-link text-danger p-1 delete-btn" title="Hapus"
+                    data-id="${newIdPenyedia}"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+
+        addAlert.textContent = 'Mitra berhasil didaftarkan. Entri Penyedia terkait otomatis dibuat.';
+        addAlert.className = 'alert alert-success mt-3 mb-0 py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+            modal.hide();
+            addForm.reset();
+            addAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+        }, 1500);
+    });
+
+    // --- Update Feature ---
+    const editModalEl = document.getElementById('editModal');
+    const editForm = document.getElementById('editForm');
+    const editAlert = document.getElementById('editAlert');
+    let currentEditId = null;
+
+    editModalEl.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        currentEditId = btn.getAttribute('data-id');
+        document.getElementById('editEmail').value = btn.getAttribute('data-email');
+        document.getElementById('editNama').value = btn.getAttribute('data-nama');
+        document.getElementById('editTgl').value = btn.getAttribute('data-tgl');
+        editAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+    });
+
+    editForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        editAlert.className = 'alert d-none mt-3 mb-0 py-2 small';
+
+        if (!editForm.checkValidity()) {
+            editAlert.textContent = 'Harap lengkapi semua kolom dengan format yang valid.';
+            editAlert.className = 'alert alert-danger mt-3 mb-0 py-2 small';
+            return;
+        }
+
+        const nama = document.getElementById('editNama').value;
+        const tgl = document.getElementById('editTgl').value;
+        // Email tidak diambil karena disabled/PK
+
+        // Update baris tabel
+        const tr = document.getElementById('row-' + currentEditId);
+        if (tr) {
+            tr.querySelector('.nama-col').textContent = nama;
+            tr.querySelector('.tgl-col').textContent = tgl;
+
+            // Update data attributes tombol
+            const editBtn = tr.querySelector('.edit-btn');
+            editBtn.setAttribute('data-nama', nama);
+            editBtn.setAttribute('data-tgl', tgl);
+        }
+
+        editAlert.textContent = 'Informasi Mitra berhasil diperbarui.';
+        editAlert.className = 'alert alert-success mt-3 mb-0 py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(editModalEl);
+            modal.hide();
+        }, 1000);
+    });
+
+    // --- Delete Feature ---
+    const deleteModalEl = document.getElementById('deleteModal');
+    const deleteAlert = document.getElementById('deleteAlert');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+    deleteModalEl.addEventListener('show.bs.modal', function(e) {
+        const btn = e.relatedTarget;
+        currentDeleteId = btn.getAttribute('data-id');
+        currentDeleteRow = document.getElementById('row-' + currentDeleteId);
+        deleteAlert.className = 'alert d-none py-2 small';
+    });
+
+    confirmDeleteBtn.addEventListener('click', function() {
+        if (currentDeleteRow) {
+            currentDeleteRow.remove();
+        }
+        
+        deleteAlert.textContent = 'Data Mitra berhasil dihapus. Data Hadiah terkait juga ikut terhapus.';
+        deleteAlert.className = 'alert alert-success py-2 small';
+        setTimeout(() => {
+            const modal = bootstrap.Modal.getInstance(deleteModalEl);
+            modal.hide();
+        }, 1500);
+    });
+});
+</script>
+{% endblock %}

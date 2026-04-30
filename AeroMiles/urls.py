@@ -25,6 +25,8 @@ from members.views import (
     logout_page,
     register_page,
     profile_settings,
+    kelola_hadiah,
+    kelola_mitra,
     redeem_list,
     buy_package,
     tier_info,
@@ -63,6 +65,8 @@ urlpatterns = [
     path('auth/logout/', logout_page, name='logout_page'),
     path('auth/register/', register_page, name='register_page'),
     path('profile/settings/', profile_settings, name='profile_settings'),
+    path('hadiah/kelola/', kelola_hadiah, name='kelola_hadiah'),
+    path('mitra/kelola/', kelola_mitra, name='kelola_mitra'),
     # Klaim URLs
     path('klaim/ajukan/', ajukan_klaim, name='ajukan_klaim'),
     path('klaim/riwayat/', riwayat_klaim, name='riwayat_klaim'),
