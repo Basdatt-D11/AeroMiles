@@ -198,9 +198,16 @@ def kelola_mitra(request):
         ]
     }
     return render(request, 'mitra/kelola_mitra.html', context)
+# Helper for mock member
+def get_mock_member():
+    member = Member.objects.filter(role='Member').first()
+    if not member:
+        member = Member.objects.create(role='Member', nama='Mr. John Doe', email='john@example.com', password='demo')
+    return member
+
 # Klaim views for Member
 def ajukan_klaim(request):
-    member = Member.objects.filter(role='Member').first()  # Hardcode for demo
+    member = get_mock_member()
     if request.method == 'POST':
         form = KlaimForm(request.POST)
         if form.is_valid():
@@ -223,7 +230,7 @@ def ajukan_klaim(request):
 
 
 def riwayat_klaim(request):
-    member = Member.objects.filter(role='Member').first()
+    member = get_mock_member()
     klaims = Klaim.objects.filter(member=member).order_by('-timestamp_pengajuan')
     status_filter = request.GET.get('status')
     if status_filter:
@@ -239,7 +246,7 @@ def riwayat_klaim(request):
 
 
 def edit_klaim(request, klaim_id):
-    member = Member.objects.filter(role='Member').first()
+    member = get_mock_member()
     klaim = get_object_or_404(Klaim, id=klaim_id, member=member, status='Menunggu')
     if request.method == 'POST':
         form = KlaimForm(request.POST, instance=klaim)
@@ -262,7 +269,7 @@ def edit_klaim(request, klaim_id):
 
 
 def batalkan_klaim(request, klaim_id):
-    member = Member.objects.filter(role='Member').first()
+    member = get_mock_member()
     klaim = get_object_or_404(Klaim, id=klaim_id, member=member, status='Menunggu')
     if request.method == 'POST':
         klaim.delete()
@@ -340,6 +347,14 @@ def transactions_buy_package(request):
     history = [{'id': 201, 'package_id': 'PKG-002', 'miles': 5000, 'price': 200000, 'date': '2026-02-15'}]
     context = {'role': 'Member', 'nama': 'Mr. John Doe', 'packages': packages, 'history': history}
     return render(request, 'transactions/buy_package.html', context)
+
+
+def transactions_transfer(request):
+    history = [
+        {'id': 301, 'to_email': 'alice@example.com', 'miles': 1500, 'date': '2026-04-20', 'status': 'Sukses'},
+    ]
+    context = {'role': 'Member', 'nama': 'Mr. John Doe', 'history': history}
+    return render(request, 'transactions/transfer_miles.html', context)
 
 
 def transactions_tier_info(request):

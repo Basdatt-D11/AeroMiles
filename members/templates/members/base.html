@@ -245,7 +245,7 @@
                     <i class="bi bi-airplane-engines-fill"></i>
                     <span class="nav-text">Klaim Miles</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero {% if request.resolver_match.url_name == 'transactions_transfer' %}active-dashboard{% endif %}" href="{% url 'transactions_transfer' %}">
                     <i class="bi bi-arrow-left-right"></i>
                     <span class="nav-text">Transfer Miles</span>
                 </a>

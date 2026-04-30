@@ -1,0 +1,72 @@
+{% extends 'members/base.html' %}
+{% load humanize %}
+
+{% block title %}Transfer Miles{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="m-0">Transfer Miles</h4>
+        <small class="text-muted">Kirimkan miles Anda ke member lain</small>
+    </div>
+    <div>
+        <span class="badge bg-light text-dark">Saldo Miles: <strong>12.500</strong></span>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card p-4 shadow-sm border-0">
+            <h5 class="mb-3">Formulir Transfer</h5>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Email Tujuan</label>
+                    <input type="email" class="form-control" placeholder="member@example.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Jumlah Miles</label>
+                    <input type="number" class="form-control" placeholder="0" min="100" required>
+                    <div class="form-text">Minimal transfer 100 miles.</div>
+                </div>
+                <div class="d-grid mt-4">
+                    <button type="button" class="btn btn-primary">Transfer Sekarang</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h5 class="mb-3">Riwayat Transfer</h5>
+<div class="table-container p-3">
+    <table class="table mb-0 align-middle">
+        <thead>
+            <tr>
+                <th>ID Transfer</th>
+                <th>Tujuan</th>
+                <th>Jumlah</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in history %}
+            <tr>
+                <td>{{ h.id }}</td>
+                <td>{{ h.to_email }}</td>
+                <td>{{ h.miles|intcomma }}</td>
+                <td>{{ h.date }}</td>
+                <td>
+                    <span class="badge {% if h.status == 'Sukses' %}bg-success{% else %}bg-secondary{% endif %}">
+                        {{ h.status }}
+                    </span>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center text-muted">Belum ada riwayat transfer.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

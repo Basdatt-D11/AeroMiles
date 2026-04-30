@@ -29,6 +29,7 @@ from members.views import (
     kelola_mitra,
     transactions_redeem,
     transactions_buy_package,
+    transactions_transfer,
     transactions_tier_info,
     transactions_report,
     ajukan_klaim,
@@ -48,6 +49,7 @@ urlpatterns = [
     # Transactions namespace (new)
     path('transactions/redeem/', transactions_redeem, name='transactions_redeem'),
     path('transactions/buy-package/', transactions_buy_package, name='transactions_buy_package'),
+    path('transactions/transfer/', transactions_transfer, name='transactions_transfer'),
     path('transactions/tier/', transactions_tier_info, name='transactions_tier_info'),
     path('transactions/report/', transactions_report, name='transactions_report'),
     path('members/identitas/', list_identitas, name='list_identitas'),
