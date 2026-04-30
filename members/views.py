@@ -276,68 +276,54 @@ def riwayat_klaim(request):
 
 
 def edit_klaim(request, klaim_id):
-    member = get_mock_member()
-    klaim = get_object_or_404(Klaim, id=klaim_id, member=member, status='Menunggu')
     if request.method == 'POST':
-        form = KlaimForm(request.POST, instance=klaim)
-        if form.is_valid():
-            if Klaim.objects.filter(member=member, flight_number=form.cleaned_data['flight_number'], tanggal_penerbangan=form.cleaned_data['tanggal_penerbangan'], nomor_tiket=form.cleaned_data['nomor_tiket']).exclude(pk=klaim.pk).exists():
-                form.add_error(None, 'Klaim dengan data yang sama sudah ada.')
-            else:
-                form.save()
-                messages.success(request, 'Klaim berhasil diupdate.')
-                return redirect('riwayat_klaim')
-    else:
-        form = KlaimForm(instance=klaim)
-    context = {
-        'role': 'Member',
-        'nama': member.nama,
-        'form': form,
-        'klaim': klaim,
-    }
-    return render(request, 'klaim/edit_klaim.html', context)
+        # Simulasi update (tidak benar-benar menulis ke JSON di sini)
+        messages.success(request, 'Klaim berhasil diupdate.')
+        return redirect('riwayat_klaim')
+    return redirect('riwayat_klaim')
 
 
 def batalkan_klaim(request, klaim_id):
-    member = get_mock_member()
-    klaim = get_object_or_404(Klaim, id=klaim_id, member=member, status='Menunggu')
     if request.method == 'POST':
-        klaim.delete()
+        # Simulasi hapus (tidak benar-benar menulis ke JSON di sini)
         messages.success(request, 'Klaim berhasil dibatalkan.')
         return redirect('riwayat_klaim')
-    context = {
-        'role': 'Member',
-        'nama': member.nama,
-        'klaim': klaim,
-    }
-    return render(request, 'klaim/batalkan_klaim.html', context)
+    return redirect('riwayat_klaim')
 
 
 # Klaim views for Staff
 def kelola_klaim(request):
     data = get_dummy_data()
-    klaims = data.get("CLAIM_MISSING_MILES", [])
+    klaims_raw = data.get("CLAIM_MISSING_MILES", [])
+    members = data.get("MEMBER", [])
+    
+    klaims = []
+    for k in klaims_raw:
+        m = next((member for member in members if member['email'] == k.get('email_member')), {})
+        k_copy = k.copy()
+        k_copy['member_nama'] = m.get('nama', 'Unknown')
+        k_copy['member_email'] = m.get('email', k.get('email_member'))
+        klaims.append(k_copy)
+
     context = {
         'role': request.session.get('user_role', 'Staff'),
-        'nama': request.session.get('user_name', 'Mr. John William Doe'),
+        'nama': request.session.get('user_name', 'Mr. Admin Aero'),
         'klaims': klaims,
     }
     return render(request, 'klaim/kelola_klaim.html', context)
 
 
 def approve_klaim(request, klaim_id):
-    klaim = get_object_or_404(Klaim, id=klaim_id)
-    klaim.status = 'Disetujui'
-    klaim.save()
-    messages.success(request, 'Klaim disetujui.')
+    if request.method == 'POST':
+        # Simulasi (tidak menulis ke JSON)
+        messages.success(request, f'Klaim CLM-{str(klaim_id).zfill(3)} berhasil disetujui.')
     return redirect('kelola_klaim')
 
 
 def reject_klaim(request, klaim_id):
-    klaim = get_object_or_404(Klaim, id=klaim_id)
-    klaim.status = 'Ditolak'
-    klaim.save()
-    messages.success(request, 'Klaim ditolak.')
+    if request.method == 'POST':
+        # Simulasi (tidak menulis ke JSON)
+        messages.success(request, f'Klaim CLM-{str(klaim_id).zfill(3)} berhasil ditolak.')
     return redirect('kelola_klaim')
 
 

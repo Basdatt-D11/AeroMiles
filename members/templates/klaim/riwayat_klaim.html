@@ -74,9 +74,18 @@
                             <td>{{ klaim.timestamp_pengajuan|slice:":16" }}</td>
                             <td class="text-nowrap">
                                 {% if klaim.status == 'Menunggu' %}
-                                <a href="{% url 'edit_klaim' klaim.id %}" class="btn btn-sm btn-outline-primary me-1">
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1 edit-klaim-btn" 
+                                    data-id="{{ klaim.id }}" 
+                                    data-maskapai="{{ klaim.maskapai }}"
+                                    data-asal="{{ klaim.bandara_asal }}"
+                                    data-tujuan="{{ klaim.bandara_tujuan }}"
+                                    data-tanggal="{{ klaim.tanggal_penerbangan }}"
+                                    data-flight="{{ klaim.flight_number }}"
+                                    data-tiket="{{ klaim.nomor_tiket }}"
+                                    data-kelas="{{ klaim.kelas_kabin }}"
+                                    data-pnr="{{ klaim.pnr|default:'' }}">
                                     <i class="bi bi-pencil-fill"></i>
-                                </a>
+                                </button>
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#batalkanModal{{ klaim.id }}">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
@@ -179,4 +188,111 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit Klaim -->
+<div class="modal fade" id="editKlaimModal" tabindex="-1" aria-labelledby="editKlaimModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold" id="editKlaimModalLabel">Edit Klaim</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="editKlaimForm" method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Maskapai</label>
+                            <select name="maskapai" id="edit_maskapai" class="form-select">
+                                <option value="Garuda Indonesia">Garuda Indonesia</option>
+                                <option value="Singapore Airlines">Singapore Airlines</option>
+                                <option value="Emirates">Emirates</option>
+                                <option value="Japan Airlines">Japan Airlines</option>
+                                <option value="All Nippon Airways">All Nippon Airways</option>
+                                <option value="Qatar Airways">Qatar Airways</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Kelas Kabin</label>
+                            <select name="kelas_kabin" id="edit_kelas" class="form-select">
+                                <option value="Economy">Economy</option>
+                                <option value="Business">Business</option>
+                                <option value="First">First</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Bandara Asal</label>
+                            <select name="bandara_asal" id="edit_asal" class="form-select">
+                                <option value="CGK">CGK - Jakarta</option>
+                                <option value="DPS">DPS - Bali</option>
+                                <option value="SIN">SIN - Singapore</option>
+                                <option value="HND">HND - Tokyo Haneda</option>
+                                <option value="NRT">NRT - Tokyo Narita</option>
+                                <option value="KUL">KUL - Kuala Lumpur</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Bandara Tujuan</label>
+                            <select name="bandara_tujuan" id="edit_tujuan" class="form-select">
+                                <option value="CGK">CGK - Jakarta</option>
+                                <option value="DPS">DPS - Bali</option>
+                                <option value="SIN">SIN - Singapore</option>
+                                <option value="HND">HND - Tokyo Haneda</option>
+                                <option value="NRT">NRT - Tokyo Narita</option>
+                                <option value="KUL">KUL - Kuala Lumpur</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Tanggal Penerbangan</label>
+                            <input type="date" name="tanggal_penerbangan" id="edit_tanggal" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Flight Number</label>
+                            <input type="text" name="flight_number" id="edit_flight" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Nomor Tiket</label>
+                            <input type="text" name="nomor_tiket" id="edit_tiket" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">PNR</label>
+                            <input type="text" name="pnr" id="edit_pnr" class="form-control">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary px-4" style="background-color: #1E3A8A; border-radius: 6px;">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editBtns = document.querySelectorAll('.edit-klaim-btn');
+    const editModal = new bootstrap.Modal(document.getElementById('editKlaimModal'));
+    const editForm = document.getElementById('editKlaimForm');
+
+    editBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = this.dataset.id;
+            // Update form action URL
+            editForm.action = `/klaim/edit/${id}/`;
+            
+            // Fill fields
+            document.getElementById('edit_maskapai').value = this.dataset.maskapai;
+            document.getElementById('edit_kelas').value = this.dataset.kelas;
+            document.getElementById('edit_asal').value = this.dataset.asal;
+            document.getElementById('edit_tujuan').value = this.dataset.tujuan;
+            document.getElementById('edit_tanggal').value = this.dataset.tanggal;
+            document.getElementById('edit_flight').value = this.dataset.flight;
+            document.getElementById('edit_tiket').value = this.dataset.tiket;
+            document.getElementById('edit_pnr').value = this.dataset.pnr;
+            
+            editModal.show();
+        });
+    });
+});
+</script>
 {% endblock %}
