@@ -1,0 +1,120 @@
+{% extends 'members/base.html' %}
+{% load humanize %}
+
+{% block title %}Laporan & Riwayat Transaksi{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="m-0">Laporan & Riwayat Transaksi</h4>
+        <small class="text-muted">Filter dan pantau aktivitas transaksi member</small>
+    </div>
+    <div>
+        <a href="#" class="btn btn-light">Export CSV</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card p-3 mb-3">
+            <form class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <input type="text" class="form-control" placeholder="Cari Member atau ID">
+                </div>
+                <div class="col-auto">
+                    <select class="form-select">
+                        <option value="">Semua Tipe</option>
+                        <option>Redeem</option>
+                        <option>Transfer</option>
+                        <option>Purchase</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-container p-3">
+            <table class="table mb-0 align-middle">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Member</th>
+                        <th>Tipe</th>
+                        <th>Miles</th>
+                        <th>Harga</th>
+                        <th>Status</th>
+                        <th>Waktu</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in transactions %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.member }}</td>
+                        <td>{{ t.type }}</td>
+                        <td>{{ t.miles }}</td>
+                        <td>{% if t.amount %}Rp {{ t.amount|intcomma }}{% else %}-{% endif %}</td>
+                        <td>{{ t.status }}</td>
+                        <td>{{ t.timestamp }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-light me-1">Detail</button>
+                            <button class="btn btn-sm btn-danger btn-delete" data-id="{{ t.id }}">Hapus</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 mb-3">
+            <h6 class="mb-3">Top Members (by miles)</h6>
+            <ul class="list-unstyled mb-0">
+                {% for m in top_members %}
+                <li class="d-flex justify-content-between py-2 border-bottom">
+                    <div>{{ m.member }}</div>
+                    <div class="text-muted">{{ m.total_miles }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="card p-3">
+            <h6>Petunjuk</h6>
+            <p class="small text-muted mb-0">Gunakan filter untuk menampilkan transaksi tertentu. Tombol Hapus hanya demo.</p>
+        </div>
+    </div>
+</div>
+
+{% include 'members/transaction_confirm_modal.html' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function(){
+            const id = this.dataset.id;
+            const modal = new bootstrap.Modal(document.getElementById('transactionDeleteModal'));
+            document.getElementById('deleteTxnId').textContent = id;
+            document.getElementById('confirmDeleteTxnBtn').dataset.id = id;
+            modal.show();
+        });
+    });
+    document.getElementById('confirmDeleteTxnBtn').addEventListener('click', function(){
+        const id = this.dataset.id;
+        const modalEl = document.getElementById('transactionDeleteModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+        alert('Transaksi ' + id + ' dihapus (demo)');
+    });
+});
+</script>
+
+{% endblock %}

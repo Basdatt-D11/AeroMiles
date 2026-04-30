@@ -1,0 +1,83 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Redeem Hadiah{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="m-0">Redeem Hadiah</h4>
+        <small class="text-muted">Pilih hadiah yang ingin Anda tukarkan dengan miles</small>
+    </div>
+    <div>
+        <span class="badge bg-light text-dark">Saldo Miles: <strong>75.000</strong></span>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    {% for r in rewards %}
+    <div class="col-md-6">
+        <div class="card p-3 d-flex flex-row align-items-center">
+            <img src="{{ r.image }}" alt="{{ r.name }}" style="width:120px; height:80px; object-fit:cover; border-radius:8px;">
+            <div class="ms-3 flex-grow-1">
+                <h6 class="mb-1">{{ r.name }}</h6>
+                <p class="mb-1 text-muted small">{{ r.description }}</p>
+                <div class="d-flex gap-2 align-items-center">
+                    <span class="badge bg-info text-white">{{ r.miles }} miles</span>
+                </div>
+            </div>
+            <div class="ms-3">
+                <button class="btn btn-primary btn-action redeem-btn" data-id="{{ r.id }}" data-name="{{ r.name }}" data-miles="{{ r.miles }}">Redeem</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h5 class="mb-2">Riwayat Redeem</h5>
+<div class="table-container p-3">
+    <table class="table mb-0 align-middle">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Hadiah</th>
+                <th>Miles</th>
+                <th>Status</th>
+                <th>Tanggal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in history %}
+            <tr>
+                <td>{{ h.id }}</td>
+                <td>{{ h.reward }}</td>
+                <td>{{ h.miles }}</td>
+                <td>{{ h.status }}</td>
+                <td>{{ h.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'transactions/redeem_confirm_modal.html' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const redeemBtns = document.querySelectorAll('.redeem-btn');
+    redeemBtns.forEach(btn => {
+        btn.addEventListener('click', function(){
+            const id = this.dataset.id;
+            const name = this.dataset.name;
+            const miles = this.dataset.miles;
+            const modal = new bootstrap.Modal(document.getElementById('redeemModal'));
+            document.getElementById('modalRewardName').textContent = name;
+            document.getElementById('modalRewardMiles').textContent = miles + ' miles';
+            document.getElementById('confirmRedeemBtn').dataset.id = id;
+            modal.show();
+        });
+    });
+});
+</script>
+
+{% endblock %}
