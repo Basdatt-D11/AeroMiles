@@ -1,0 +1,57 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Info Tier{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h4 class="m-0">Info Tier</h4>
+    <small class="text-muted">Informasi tentang tingkatan dan progress Anda menuju tier berikutnya</small>
+    <div class="mt-3">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+            <div>Saldo Miles Anda: <strong>{{ current_miles|intcomma }}</strong></div>
+            {% if next_tier %}
+            <div class="text-muted">Butuh <strong>{{ miles_to_next|intcomma }}</strong> miles untuk naik ke {{ next_tier.name }}</div>
+            {% else %}
+            <div class="text-muted">Anda sudah di tier tertinggi</div>
+            {% endif %}
+        </div>
+        <div class="progress" style="height:14px; border-radius:12px;">
+            <div class="progress-bar bg-info" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row gy-3">
+    {% for t in tiers %}
+    <div class="col-12">
+        <div class="card p-3 {% if t.name == current_tier.name %}border-success shadow-sm{% endif %}" style="border-width:2px;">
+            <div class="d-flex align-items-center gap-3">
+                <div style="width:56px; height:56px; border-radius:12px; background-color: {% if t.name == current_tier.name %}#e6ffed{% else %}#f8f9fa{% endif %}; display:flex; align-items:center; justify-content:center;">
+                    <i class="bi bi-award-fill fs-4 text-{{ t.color }}"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1">{{ t.name }} {% if t.name == current_tier.name %}<span class="badge bg-success">Saat Ini</span>{% endif %}</h6>
+                            <small class="text-muted">Minimal Miles: {{ t.min_miles|intcomma }}</small>
+                        </div>
+                        <div class="text-end">
+                            {% if t.name == current_tier.name and next_tier %}
+                                <small class="text-muted">{{ progress }}% ke {{ next_tier.name }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <ul class="mb-0 mt-2">
+                        {% for n in t.notes %}
+                        <li class="text-muted small">{{ n }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Beli Award Miles Package{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="m-0">Beli Award Miles Package</h4>
+        <small class="text-muted">Pilih paket miles yang tersedia</small>
+    </div>
+    <div>
+        <span class="badge bg-light text-dark">Saldo Miles: <strong>12.500</strong></span>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    {% for p in packages %}
+    <div class="col-md-3">
+        <div class="card p-3 text-center">
+            <div class="mb-2 text-muted small">{{ p.id }}</div>
+            <h5 class="mt-1">{{ p.miles|intcomma }} Miles</h5>
+            <div class="my-2">Rp {{ p.price|intcomma }}</div>
+            <button class="btn btn-primary btn-action buy-btn" data-id="{{ p.id }}" data-miles="{{ p.miles }}" data-price="{{ p.price }}">Beli</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h5 class="mb-2">Riwayat Pembelian Paket</h5>
+<div class="table-container p-3">
+    <table class="table mb-0 align-middle">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID Paket</th>
+                <th>Miles</th>
+                <th>Harga</th>
+                <th>Tanggal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in history %}
+            <tr>
+                <td>{{ h.id }}</td>
+                <td>{{ h.package_id }}</td>
+                <td>{{ h.miles }}</td>
+                <td>Rp {{ h.price|intcomma }}</td>
+                <td>{{ h.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% include 'members/purchase_confirm_modal.html' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const buyBtns = document.querySelectorAll('.buy-btn');
+    buyBtns.forEach(btn => {
+        btn.addEventListener('click', function(){
+            const id = this.dataset.id;
+            const miles = this.dataset.miles;
+            const price = this.dataset.price;
+            const modal = new bootstrap.Modal(document.getElementById('purchaseModal'));
+            document.getElementById('modalPackageId').textContent = id;
+            document.getElementById('modalPackageMiles').textContent = miles + ' miles';
+            document.getElementById('modalPackagePrice').textContent = 'Rp ' + Number(price).toLocaleString();
+            document.getElementById('confirmPurchaseBtn').dataset.id = id;
+            modal.show();
+        });
+    });
+});
+</script>
+
+{% endblock %}
