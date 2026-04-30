@@ -67,15 +67,22 @@
     <!-- Form Section -->
     <div class="max-w-2xl mx-auto mb-16 mt-8 px-4">
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 md:p-10">
-            <form id="registerForm" novalidate>
+            <form id="registerForm" method="POST" action="{% url 'register_page' %}">
+                {% csrf_token %}
                 <h5 class="text-lg font-bold mb-1">Registrasi</h5>
                 <p class="text-slate-500 text-sm mb-6">Pilih peran dan lengkapi data Anda</p>
 
-                <!-- Error Alert -->
-                <div id="errorAlert" class="hidden bg-red-50 text-red-600 border border-red-200 p-4 rounded-lg mb-6 text-sm flex items-center gap-2">
-                    <i class="bi bi-exclamation-triangle-fill"></i>
-                    <span id="errorMessage"></span>
+                <!-- Django Messages (Errors/Success) -->
+                {% if messages %}
+                <div class="mb-6">
+                    {% for message in messages %}
+                    <div class="{% if message.tags == 'success' %}bg-green-50 text-green-600 border-green-200{% else %}bg-red-50 text-red-600 border-red-200{% endif %} border p-4 rounded-lg text-sm flex items-center gap-2">
+                        <i class="bi {% if message.tags == 'success' %}bi-check-circle-fill{% else %}bi-exclamation-triangle-fill{% endif %}"></i>
+                        <span>{{ message }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
+                {% endif %}
 
                 <!-- Role Switch -->
                 <div class="segmented-control flex bg-slate-100 rounded-lg p-1 mb-6">
@@ -90,17 +97,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="col-span-1 md:col-span-1">
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Email <span class="text-red-500">*</span></label>
-                        <input type="email" id="email" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="email" name="email" id="email" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Password <span class="text-red-500">*</span></label>
-                        <input type="password" id="password" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="password" name="password" id="password" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Konfirmasi Password <span class="text-red-500">*</span></label>
-                        <input type="password" id="confirmPassword" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="password" name="confirm_password" id="confirmPassword" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                 </div>
 
@@ -112,7 +119,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Salutation <span class="text-red-500">*</span></label>
-                        <select class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" required>
+                        <select name="salutation" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" required>
                             <option value="">Pilih</option>
                             <option value="Mr">Mr.</option>
                             <option value="Mrs">Mrs.</option>
@@ -124,18 +131,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Nama Depan <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="text" name="first_name" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Nama Belakang <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="text" name="last_name" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Kewarganegaraan <span class="text-red-500">*</span></label>
-                        <select class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" required>
+                        <select name="nationality" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" required>
                             <option value="">Pilih negara</option>
                             <option value="ID">Indonesia</option>
                             <option value="SG">Singapore</option>
@@ -147,7 +154,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Country Code</label>
-                        <select class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white">
+                        <select name="country_code" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white">
                             <option value="+62">+62</option>
                             <option value="+65">+65</option>
                             <option value="+60">+60</option>
@@ -155,14 +162,14 @@
                     </div>
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Nomor HP <span class="text-red-500">*</span></label>
-                        <input type="text" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="text" name="phone" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div>
                         <label class="block font-semibold text-sm text-slate-800 mb-1.5">Tanggal Lahir <span class="text-red-500">*</span></label>
-                        <input type="date" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
+                        <input type="date" name="birth_date" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" required>
                     </div>
                 </div>
 
@@ -173,11 +180,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block font-semibold text-sm text-slate-800 mb-1.5">Kode Maskapai <span class="text-red-500">*</span></label>
-                            <select class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" id="kodeMaskapaiSelect">
+                            <select name="airline_code" class="w-full rounded-lg border-slate-300 border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-white" id="airline_code">
                                 <option value="">Pilih maskapai</option>
                                 <option value="GA">Garuda Indonesia (GA)</option>
-                                <option value="JT">Lion Air (JT)</option>
-                                <option value="QZ">AirAsia (QZ)</option>
+                                <option value="SQ">Singapore Airlines (SQ)</option>
+                                <option value="AA">American Airlines (AA)</option>
+                                <option value="EK">Emirates (EK)</option>
                             </select>
                         </div>
                     </div>
@@ -194,62 +202,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const registerForm = document.getElementById('registerForm');
             const roleRadios = document.querySelectorAll('input[name="role"]');
             const dataStafSection = document.getElementById('dataStafSection');
-            const kodeMaskapaiSelect = document.getElementById('kodeMaskapaiSelect');
+            const airlineCodeSelect = document.getElementById('airline_code');
             
-            const emailInput = document.getElementById('email');
-            const passwordInput = document.getElementById('password');
-            const confirmPasswordInput = document.getElementById('confirmPassword');
-            const errorAlert = document.getElementById('errorAlert');
-            const errorMessage = document.getElementById('errorMessage');
-
             roleRadios.forEach(radio => {
                 radio.addEventListener('change', function() {
                     if (this.value === 'Staff') {
                         dataStafSection.style.display = 'block';
-                        kodeMaskapaiSelect.setAttribute('required', 'required');
+                        airlineCodeSelect.setAttribute('required', 'required');
                     } else {
                         dataStafSection.style.display = 'none';
-                        kodeMaskapaiSelect.removeAttribute('required');
+                        airlineCodeSelect.removeAttribute('required');
                     }
                 });
-            });
-
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                errorAlert.classList.add('hidden');
-
-                // 1. Cek validasi HTML5 (field kosong atau format tidak sesuai)
-                if (!registerForm.checkValidity()) {
-                    errorMessage.textContent = 'Harap lengkapi semua field yang wajib diisi dengan format yang benar.';
-                    errorAlert.classList.remove('hidden');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    // Optional: highlight field yang error bawaan browser
-                    registerForm.reportValidity();
-                    return;
-                }
-
-                // 2. Simulasi: Jika email sudah terdaftar
-                if (emailInput.value.trim().toLowerCase() === 'alice@mail.com') {
-                    errorMessage.textContent = 'Email sudah terdaftar. Silakan gunakan email lain atau login.';
-                    errorAlert.classList.remove('hidden');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    return;
-                }
-
-                // 3. Validasi: Password dan Konfirmasi Password harus sama
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    errorMessage.textContent = 'Password dan Konfirmasi Password harus sama.';
-                    errorAlert.classList.remove('hidden');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    return;
-                }
-
-                // 4. Jika sukses
-                alert('Pendaftaran berhasil! Anda akan diarahkan ke halaman login.');
-                window.location.href = "{% url 'login_page' %}";
             });
         });
     </script>
