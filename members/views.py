@@ -53,11 +53,6 @@ class KlaimForm(forms.ModelForm):
         self.add_bootstrap_classes()
 
 
-def login_register(request):
-    """Halaman login dan registrasi (frontend only)"""
-    return render(request, 'members/login_register.html')
-
-
 def dashboard(request):
     context = {
         'nama': 'Mr. John William Doe',
@@ -130,7 +125,7 @@ def profile_settings(request):
             'nama_depan': 'John',
             'nama_belakang': 'Doe',
         }
-    return render(request, 'members/profile_settings.html', context)
+    return render(request, 'profile/profile_settings.html', context)
 
 
 def kelola_hadiah(request):
@@ -180,7 +175,7 @@ def kelola_hadiah(request):
             }
         ]
     }
-    return render(request, 'members/kelola_hadiah.html', context)
+    return render(request, 'hadiah/kelola_hadiah.html', context)
 
 
 def kelola_mitra(request):
@@ -202,7 +197,7 @@ def kelola_mitra(request):
             }
         ]
     }
-    return render(request, 'members/kelola_mitra.html', context)
+    return render(request, 'mitra/kelola_mitra.html', context)
 # Klaim views for Member
 def ajukan_klaim(request):
     member = Member.objects.filter(role='Member').first()  # Hardcode for demo
@@ -224,7 +219,7 @@ def ajukan_klaim(request):
         'nama': member.nama,
         'form': form,
     }
-    return render(request, 'members/ajukan_klaim.html', context)
+    return render(request, 'klaim/ajukan_klaim.html', context)
 
 
 def riwayat_klaim(request):
@@ -240,7 +235,7 @@ def riwayat_klaim(request):
         'form': KlaimForm(),
         'selected_status': status_filter,
     }
-    return render(request, 'members/riwayat_klaim.html', context)
+    return render(request, 'klaim/riwayat_klaim.html', context)
 
 
 def edit_klaim(request, klaim_id):
@@ -263,7 +258,7 @@ def edit_klaim(request, klaim_id):
         'form': form,
         'klaim': klaim,
     }
-    return render(request, 'members/edit_klaim.html', context)
+    return render(request, 'klaim/edit_klaim.html', context)
 
 
 def batalkan_klaim(request, klaim_id):
@@ -278,7 +273,7 @@ def batalkan_klaim(request, klaim_id):
         'nama': member.nama,
         'klaim': klaim,
     }
-    return render(request, 'members/batalkan_klaim.html', context)
+    return render(request, 'klaim/batalkan_klaim.html', context)
 
 
 # Klaim views for Staff
@@ -289,7 +284,7 @@ def kelola_klaim(request):
         'nama': 'Mr. John William Doe',
         'klaims': klaims,
     }
-    return render(request, 'members/kelola_klaim.html', context)
+    return render(request, 'klaim/kelola_klaim.html', context)
 
 
 def approve_klaim(request, klaim_id):
@@ -308,8 +303,7 @@ def reject_klaim(request, klaim_id):
     return redirect('kelola_klaim')
 
 
-# --- Transaction / Redeem / Package / Tier demo views ---
-def redeem_list(request):
+def transactions_redeem(request):
     rewards = [
         {
             'id': 1,
@@ -333,10 +327,10 @@ def redeem_list(request):
     ]
 
     context = {'role': 'Member', 'nama': 'Mr. John Doe', 'rewards': rewards, 'history': history}
-    return render(request, 'members/redeem_list.html', context)
+    return render(request, 'transactions/redeem_list.html', context)
 
 
-def buy_package(request):
+def transactions_buy_package(request):
     packages = [
         {'id': 'PKG-001', 'miles': 1000, 'price': 50000},
         {'id': 'PKG-002', 'miles': 5000, 'price': 200000},
@@ -345,10 +339,10 @@ def buy_package(request):
     ]
     history = [{'id': 201, 'package_id': 'PKG-002', 'miles': 5000, 'price': 200000, 'date': '2026-02-15'}]
     context = {'role': 'Member', 'nama': 'Mr. John Doe', 'packages': packages, 'history': history}
-    return render(request, 'members/buy_package.html', context)
+    return render(request, 'transactions/buy_package.html', context)
 
 
-def tier_info(request):
+def transactions_tier_info(request):
     current_miles = 42000
     tiers = [
         {'name': 'Blue', 'min_miles': 0, 'notes': ['Member awal'], 'color': 'secondary'},
@@ -375,10 +369,10 @@ def tier_info(request):
         miles_to_next = 0
         progress = 100
     context = {'role': 'Member', 'nama': 'Mr. John Doe', 'current_miles': current_miles, 'tiers': tiers, 'current_tier': current_tier, 'next_tier': next_tier, 'miles_to_next': miles_to_next, 'progress': progress}
-    return render(request, 'members/tier_info.html', context)
+    return render(request, 'transactions/tier_info.html', context)
 
 
-def transaction_report(request):
+def transactions_report(request):
     transactions = [
         {'id': 1, 'member': 'Alice', 'type': 'Redeem', 'amount': 0, 'miles': -25000, 'status': 'Sukses', 'timestamp': '2026-04-10 09:12'},
         {'id': 2, 'member': 'Bob', 'type': 'Transfer', 'amount': 0, 'miles': -5000, 'status': 'Sukses', 'timestamp': '2026-04-09 16:45'},
@@ -391,21 +385,4 @@ def transaction_report(request):
         top[t['member']] += t.get('miles', 0)
     top_members = sorted([{'member': k, 'total_miles': v} for k, v in top.items()], key=lambda x: x['total_miles'], reverse=True)
     context = {'role': 'Staff', 'nama': 'Staff Admin', 'transactions': transactions, 'top_members': top_members}
-    return render(request, 'members/transaction_report.html', context)
-
-
-# transactions/* namespace views (render transactions/ templates)
-def transactions_redeem(request):
-    return render(request, 'transactions/redeem_list.html', {'role': 'Member', 'nama': 'Mr. John Doe', 'rewards': [], 'history': []})
-
-
-def transactions_buy_package(request):
-    return render(request, 'transactions/buy_package.html', {'role': 'Member', 'nama': 'Mr. John Doe', 'packages': [], 'history': []})
-
-
-def transactions_tier_info(request):
-    return render(request, 'transactions/tier_info.html', {'role': 'Member', 'nama': 'Mr. John Doe', 'current_miles': 0, 'tiers': [], 'current_tier': None, 'next_tier': None, 'miles_to_next': 0, 'progress': 0})
-
-
-def transactions_report(request):
-    return render(request, 'transactions/transaction_report.html', {'role': 'Staff', 'nama': 'Staff Admin', 'transactions': [], 'top_members': []})
+    return render(request, 'transactions/transaction_report.html', context)

@@ -27,10 +27,6 @@ from members.views import (
     profile_settings,
     kelola_hadiah,
     kelola_mitra,
-    redeem_list,
-    buy_package,
-    tier_info,
-    transaction_report,
     transactions_redeem,
     transactions_buy_package,
     transactions_tier_info,
@@ -42,19 +38,13 @@ from members.views import (
     kelola_klaim,
     approve_klaim,
     reject_klaim,
-    login_register,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login_register, name='login_register'),
-    path('dashboard/', dashboard, name='dashboard'),
+    path('', dashboard, name='dashboard'),
     path('members/list/', list_member, name='list_member'),
     path('members/add/', form_member, name='form_member'),
-    path('members/redeem/', redeem_list, name='redeem_list'),
-    path('members/buy-package/', buy_package, name='buy_package'),
-    path('members/tier/', tier_info, name='tier_info'),
-    path('members/transactions/', transaction_report, name='transaction_report'),
     # Transactions namespace (new)
     path('transactions/redeem/', transactions_redeem, name='transactions_redeem'),
     path('transactions/buy-package/', transactions_buy_package, name='transactions_buy_package'),
