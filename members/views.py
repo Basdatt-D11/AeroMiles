@@ -202,7 +202,7 @@ def kelola_mitra(request):
 def get_mock_member():
     member = Member.objects.filter(role='Member').first()
     if not member:
-        member = Member.objects.create(role='Member', nama='Mr. John Doe', email='john@example.com', password='demo')
+        member = Member.objects.create(role='Member', nama='Mr. John Doe')
     return member
 
 # Klaim views for Member
