@@ -4,7 +4,7 @@
 {% block content %}
 <div class="mb-4">
     <h2 class="fw-bold">Dashboard</h2>
-    <p class="text-muted">Selamat datang, <span class="text-primary fw-semibold">Mr. John William Doe</span></p>
+    <p class="text-muted">Selamat datang, <span class="text-primary fw-semibold">{{ nama }}</span></p>
 </div>
 
 <div class="card card-stat shadow-sm mb-4">
@@ -13,19 +13,19 @@
         <div class="row g-4">
             <div class="col-md-3">
                 <small class="text-muted d-block">Nama Lengkap:</small>
-                <span class="fw-semibold">Mr. John William Doe</span>
+                <span class="fw-semibold">{{ nama }}</span>
             </div>
             <div class="col-md-3">
                 <small class="text-muted d-block">Email:</small>
-                <span class="fw-semibold">john@example.com</span>
+                <span class="fw-semibold">{{ email }}</span>
+            </div>
+            <div class="col-md-3">
+                <small class="text-muted d-block">Role:</small>
+                <span class="fw-semibold">{{ role }}</span>
             </div>
             <div class="col-md-3">
                 <small class="text-muted d-block">Telepon:</small>
-                <span class="fw-semibold">+62 81234567890</span>
-            </div>
-            <div class="col-md-3">
-                <small class="text-muted d-block">Tanggal Lahir:</small>
-                <span class="fw-semibold">1990-05-15</span>
+                <span class="fw-semibold">{{ user.telepon|default:"+62 812-XXXX-XXXX" }}</span>
             </div>
         </div>
     </div>
@@ -36,93 +36,64 @@
     <div class="col-md-3">
         <div class="card card-stat shadow-sm p-3 border-start border-4 border-primary">
             <small class="text-muted">Nomor Member</small>
-            <h4 class="fw-bold m-0">M0001</h4>
+            <h4 class="fw-bold m-0">{{ user.no_member|default:"M-XXXX" }}</h4>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat shadow-sm p-3 border-start border-4 border-warning">
             <small class="text-muted">Tier</small>
-            <h4 class="fw-bold m-0 text-warning">Gold</h4>
+            <h4 class="fw-bold m-0 text-warning">{{ user.tier|default:"Blue" }}</h4>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat shadow-sm p-3 border-start border-4 border-info">
             <small class="text-muted">Total Miles</small>
-            <h4 class="fw-bold m-0">45,000</h4>
+            <h4 class="fw-bold m-0">{{ user.total_miles|default:"0" }}</h4>
         </div>
     </div>
     <div class="col-md-3">
         <div class="card card-stat shadow-sm p-3 border-start border-4 border-success">
-            <small class="text-muted">Award Miles</small>
-            <h4 class="fw-bold m-0">32,000</h4>
+            <small class="text-muted">Klaim Menunggu</small>
+            <h4 class="fw-bold m-0">{{ user.klaim_menunggu|default:"0" }}</h4>
         </div>
     </div>
 
-    </div>
-
-<div class="card card-stat shadow-sm">
-    <div class="card-body p-4">
-        <h5 class="fw-bold mb-3">5 Transaksi Terbaru</h5>
-        <div class="table-responsive">
-            <table class="table table-hover align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Tipe</th>
-                        <th>Tanggal & Waktu</th>
-                        <th class="text-end">Jumlah Miles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="badge bg-danger">Transfer</span></td>
-                        <td>2025-01-15 10:30</td>
-                        <td class="text-end text-danger fw-bold">-5,000 miles</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge bg-success">Package</span></td>
-                        <td>2025-03-01 08:00</td>
-                        <td class="text-end text-success fw-bold">+10,000 miles</td>
-                    </tr>
-                </tbody>
-            </table>
+    {% elif role == "Staff" %}
+    <div class="col-md-2" style="width: 20%;">
+        <div class="card card-stat shadow-sm p-3 border-start border-4 border-dark bg-white h-100">
+            <i class="bi bi-person-badge text-muted mb-2" style="font-size: 1.5rem;"></i>
+            <small class="text-muted fw-medium">Email Staf</small>
+            <h6 class="fw-bold m-0" style="font-size: 0.8rem;">{{ email }}</h6>
         </div>
     </div>
-</div>
-{% elif role == "Staff" %}
-<div class="col-md-2" style="width: 20%;">
-    <div class="card card-stat shadow-sm p-3 border-start border-4 border-dark bg-white h-100">
-        <i class="bi bi-person-badge text-muted mb-2" style="font-size: 1.5rem;"></i>
-        <small class="text-muted fw-medium">ID Staf</small>
-        <h4 class="fw-bold m-0">S0001</h4>
+    <div class="col-md-2" style="width: 20%;">
+        <div class="card card-stat shadow-sm p-3 border-start border-4 border-primary bg-white h-100">
+            <i class="bi bi-airplane text-primary mb-2" style="font-size: 1.5rem;"></i>
+            <small class="text-muted fw-medium">Maskapai</small>
+            <h5 class="fw-bold m-0">{{ user.kode_maskapai|default:"GA" }}</h5>
+        </div>
     </div>
-</div>
-<div class="col-md-2" style="width: 20%;">
-    <div class="card card-stat shadow-sm p-3 border-start border-4 border-primary bg-white h-100">
-        <i class="bi bi-airplane text-primary mb-2" style="font-size: 1.5rem;"></i>
-        <small class="text-muted fw-medium">Maskapai</small>
-        <h5 class="fw-bold m-0">Garuda Indonesia</h5>
+    <div class="col-md-2" style="width: 20%;">
+        <div class="card card-stat shadow-sm p-3 border-start border-4 border-warning bg-white h-100">
+            <i class="bi bi-clock-history text-warning mb-2" style="font-size: 1.5rem;"></i>
+            <small class="text-muted fw-medium">Klaim Menunggu</small>
+            <h4 class="fw-bold m-0 text-warning">{{ user.klaim_menunggu|default:"0" }}</h4>
+        </div>
     </div>
-</div>
-<div class="col-md-2" style="width: 20%;">
-    <div class="card card-stat shadow-sm p-3 border-start border-4 border-warning bg-white h-100">
-        <i class="bi bi-clock-history text-warning mb-2" style="font-size: 1.5rem;"></i>
-        <small class="text-muted fw-medium">Klaim Menunggu</small>
-        <h4 class="fw-bold m-0 text-warning">2</h4>
+    <div class="col-md-2" style="width: 20%;">
+        <div class="card card-stat shadow-sm p-3 border-start border-4 border-success bg-white h-100">
+            <i class="bi bi-check-circle-fill text-success mb-2" style="font-size: 1.5rem;"></i>
+            <small class="text-muted fw-medium">Klaim Disetujui</small>
+            <h4 class="fw-bold m-0 text-success">{{ user.klaim_disetujui|default:"0" }}</h4>
+        </div>
     </div>
-</div>
-<div class="col-md-2" style="width: 20%;">
-    <div class="card card-stat shadow-sm p-3 border-start border-4 border-success bg-white h-100">
-        <i class="bi bi-check-circle-fill text-success mb-2" style="font-size: 1.5rem;"></i>
-        <small class="text-muted fw-medium">Klaim Disetujui</small>
-        <h4 class="fw-bold m-0 text-success">1</h4>
+    <div class="col-md-2" style="width: 20%;">
+        <div class="card card-stat shadow-sm p-3 border-start border-4 border-danger bg-white h-100">
+            <i class="bi bi-x-circle-fill text-danger mb-2" style="font-size: 1.5rem;"></i>
+            <small class="text-muted fw-medium">Klaim Ditolak</small>
+            <h4 class="fw-bold m-0 text-danger">{{ user.klaim_ditolak|default:"0" }}</h4>
+        </div>
     </div>
+    {% endif %}
 </div>
-<div class="col-md-2" style="width: 20%;">
-    <div class="card card-stat shadow-sm p-3 border-start border-4 border-danger bg-white h-100">
-        <i class="bi bi-x-circle-fill text-danger mb-2" style="font-size: 1.5rem;"></i>
-        <small class="text-muted fw-medium">Klaim Ditolak</small>
-        <h4 class="fw-bold m-0 text-danger">1</h4>
-    </div>
-</div>
-{% endif %}
 {% endblock %}

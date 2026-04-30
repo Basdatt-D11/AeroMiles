@@ -1,7 +1,18 @@
+import os
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.conf import settings
 from .models import Member, Klaim
 from django import forms
+
+def get_dummy_data():
+    file_path = os.path.join(settings.BASE_DIR, 'dummy_data.json')
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except Exception:
+        return {}
 
 MASKAPAI_CHOICES = [
     ('GA - Garuda Indonesia', 'GA - Garuda Indonesia'),
@@ -54,25 +65,53 @@ class KlaimForm(forms.ModelForm):
 
 
 def dashboard(request):
+    data = get_dummy_data()
+    user_email = request.session.get('user_email', 'john@example.com')
+    user_role = request.session.get('user_role', 'Staff')
+    
+    user_info = {}
+    if user_role == 'Member':
+        user_info = next((m for m in data.get("MEMBER", []) if m['email'] == user_email), {})
+        # Stats for member
+        klaims = data.get("CLAIM_MISSING_MILES", [])
+        user_info['klaim_menunggu'] = len([k for k in klaims if k.get('email_member') == user_email and k.get('status') == 'Menunggu'])
+    else:
+        user_info = next((s for s in data.get("STAF", []) if s['email'] == user_email), {})
+        # Stats for staff
+        klaims = data.get("CLAIM_MISSING_MILES", [])
+        user_info['klaim_menunggu'] = len([k for k in klaims if k.get('status') == 'Menunggu'])
+        user_info['klaim_disetujui'] = len([k for k in klaims if k.get('status') == 'Disetujui'])
+        user_info['klaim_ditolak'] = len([k for k in klaims if k.get('status') == 'Ditolak'])
+
     context = {
-        'nama': 'Mr. John William Doe',
-        'role': 'Staff',
+        'nama': request.session.get('user_name', user_info.get('nama', 'User')),
+        'email': user_email,
+        'role': user_role,
+        'user': user_info,
     }
     return render(request, 'members/dashboard.html', context)
 
 
 def list_member(request):
+    data = get_dummy_data()
     context = {
-        'role': 'Staff',
-        'nama': 'Mr. John William Doe',
+        'role': request.session.get('user_role', 'Staff'),
+        'nama': request.session.get('user_name', 'Mr. John William Doe'),
+        'member_list': data.get("MEMBER", [])
     }
     return render(request, 'members/list_member.html', context)
 
 
 def list_identitas(request):
+    data = get_dummy_data()
+    identitas_list = data.get("IDENTITAS", [])
+    # Filter for logged in user
+    user_email = request.session.get('user_email', 'john@example.com')
+    identitas_list = [i for i in identitas_list if i.get('email_member') == user_email]
     context = {
-        'role': 'Member',
-        'nama': 'Mr. John Doe',
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'identitas_list': identitas_list
     }
     return render(request, 'members/identitas.html', context)
 
@@ -82,10 +121,40 @@ def form_member(request):
 
 
 def login_page(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        
+        data = get_dummy_data()
+        users = data.get("PENGGUNA", [])
+        
+        user_match = next((u for u in users if u['email'] == email and u['password'] == password), None)
+        
+        if user_match:
+            request.session['user_email'] = email
+            request.session['user_role'] = user_match['role']
+            
+            # Find name from MEMBER or STAF
+            name = "User"
+            if user_match['role'] == 'Member':
+                members = data.get("MEMBER", [])
+                m = next((m for m in members if m['email'] == email), None)
+                if m: name = m['nama']
+                request.session['user_name'] = name
+                return redirect('list_identitas')
+            else:
+                staff = data.get("STAF", [])
+                s = next((s for s in staff if s['email'] == email), None)
+                if s: name = s['nama']
+                request.session['user_name'] = name
+                return redirect('dashboard')
+        else:
+            messages.error(request, 'Email atau password salah.')
+            
     context = {
         'demo_account': {
             'email': 'john@example.com',
-            'password': '******',
+            'password': 'password123',
             'role': 'Member',
         }
     }
@@ -93,109 +162,64 @@ def login_page(request):
 
 
 def logout_page(request):
-    # Simulasi menghapus session dengan cara redirect ke login
+    request.session.flush()
     return redirect('login_page')
 
 
 def register_page(request):
-    context = {
-        'sample_members': [
-            {'nama': 'Alice Pramesti', 'email': 'alice@mail.com', 'status': 'Aktif'},
-            {'nama': 'Raka Mahendra', 'email': 'raka@mail.com', 'status': 'Menunggu Verifikasi'},
-        ]
-    }
-    return render(request, 'members/register.html', context)
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        role = request.POST.get('role')
+        
+        data = get_dummy_data()
+        users = data.get("PENGGUNA", [])
+        
+        if any(u['email'] == email for u in users):
+            messages.error(request, 'Email sudah terdaftar.')
+        else:
+            # Simulasi simpan (tidak benar-benar menulis ke JSON di sini agar tidak merusak data dummy asli)
+            messages.success(request, 'Registrasi berhasil! Silakan login.')
+            return redirect('login_page')
+            
+    return render(request, 'members/register.html')
 
 
 def profile_settings(request):
-    role = request.GET.get('role', 'Member')
-    if role == 'Staff':
-        context = {
-            'role': 'Staff',
-            'nama': 'Mr. Admin Aero',
-            'email': 'admin@aeromiles.com',
-            'nama_depan': 'Admin',
-            'nama_belakang': 'Aero',
-        }
-    else:
-        context = {
-            'role': 'Member',
-            'nama': 'Mr. John Doe',
-            'email': 'john@example.com',
-            'nama_depan': 'John',
-            'nama_belakang': 'Doe',
-        }
+    user_role = request.session.get('user_role', 'Member')
+    user_email = request.session.get('user_email', 'john@example.com')
+    user_name = request.session.get('user_name', 'User')
+    
+    # Split name for display
+    name_parts = user_name.split(' ')
+    first_name = name_parts[0] if len(name_parts) > 0 else "User"
+    last_name = name_parts[-1] if len(name_parts) > 1 else ""
+    
+    context = {
+        'role': user_role,
+        'nama': user_name,
+        'email': user_email,
+        'nama_depan': first_name,
+        'nama_belakang': last_name,
+    }
     return render(request, 'profile/profile_settings.html', context)
 
 
 def kelola_hadiah(request):
+    data = get_dummy_data()
     context = {
-        'role': 'Staff',
-        'nama': 'Mr. Admin Aero',
-        'hadiah_list': [
-            {
-                'kode': 'RWD-001',
-                'nama': 'Tiket Domestik PP',
-                'deskripsi': 'Tiket pulang-pergi rute domestik Indonesia',
-                'penyedia': 'Garuda Indonesia',
-                'tipe_penyedia': 'airline',
-                'miles': 15000,
-                'valid_start': '2024-01-01',
-                'program_end': '2025-12-31',
-            },
-            {
-                'kode': 'RWD-002',
-                'nama': 'Upgrade ke Business Class',
-                'deskripsi': 'Upgrade dari economy class ke business class',
-                'penyedia': 'Garuda Indonesia',
-                'tipe_penyedia': 'airline',
-                'miles': 25000,
-                'valid_start': '2024-01-01',
-                'program_end': '2025-12-31',
-            },
-            {
-                'kode': 'RWD-003',
-                'nama': 'Voucher Hotel Rp 500.000',
-                'deskripsi': 'Voucher hotel Jabodetabek',
-                'penyedia': 'TravelokaPartner',
-                'tipe_penyedia': 'partner',
-                'miles': 8000,
-                'valid_start': '2024-06-01',
-                'program_end': '2025-06-30',
-            },
-            {
-                'kode': 'RWD-004',
-                'nama': 'Akses Lounge 1x',
-                'deskripsi': 'Akses lounge seluruh bandara internasional',
-                'penyedia': 'Plaza Premium',
-                'tipe_penyedia': 'partner',
-                'miles': 3000,
-                'valid_start': '2024-01-01',
-                'program_end': '2025-12-31',
-            }
-        ]
+        'role': request.session.get('user_role', 'Staff'),
+        'nama': request.session.get('user_name', 'Mr. Admin Aero'),
+        'hadiah_list': data.get("HADIAH", [])
     }
     return render(request, 'hadiah/kelola_hadiah.html', context)
 
 
 def kelola_mitra(request):
+    data = get_dummy_data()
     context = {
-        'role': 'Staff',
-        'nama': 'Mr. Admin Aero',
-        'mitra_list': [
-            {
-                'email': 'partner@traveloka.com',
-                'id_penyedia': 'PYD-001',
-                'nama_mitra': 'TravelokaPartner',
-                'tanggal_kerja_sama': '2023-01-15'
-            },
-            {
-                'email': 'partner@plazapremium.com',
-                'id_penyedia': 'PYD-002',
-                'nama_mitra': 'Plaza Premium',
-                'tanggal_kerja_sama': '2023-06-01'
-            }
-        ]
+        'role': request.session.get('user_role', 'Staff'),
+        'nama': request.session.get('user_name', 'Mr. Admin Aero'),
+        'mitra_list': data.get("MITRA", [])
     }
     return render(request, 'mitra/kelola_mitra.html', context)
 # Helper for mock member
@@ -230,14 +254,20 @@ def ajukan_klaim(request):
 
 
 def riwayat_klaim(request):
-    member = get_mock_member()
-    klaims = Klaim.objects.filter(member=member).order_by('-timestamp_pengajuan')
+    data = get_dummy_data()
+    klaims = data.get("CLAIM_MISSING_MILES", [])
+    
+    # Filter for logged in user
+    user_email = request.session.get('user_email', 'john@example.com')
+    klaims = [k for k in klaims if k.get('email_member') == user_email]
+    
     status_filter = request.GET.get('status')
     if status_filter:
-        klaims = klaims.filter(status=status_filter)
+        klaims = [k for k in klaims if k.get('status') == status_filter]
+        
     context = {
-        'role': 'Member',
-        'nama': member.nama,
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
         'klaims': klaims,
         'form': KlaimForm(),
         'selected_status': status_filter,
@@ -285,10 +315,11 @@ def batalkan_klaim(request, klaim_id):
 
 # Klaim views for Staff
 def kelola_klaim(request):
-    klaims = Klaim.objects.all().order_by('-timestamp_pengajuan')
+    data = get_dummy_data()
+    klaims = data.get("CLAIM_MISSING_MILES", [])
     context = {
-        'role': 'Staff',
-        'nama': 'Mr. John William Doe',
+        'role': request.session.get('user_role', 'Staff'),
+        'nama': request.session.get('user_name', 'Mr. John William Doe'),
         'klaims': klaims,
     }
     return render(request, 'klaim/kelola_klaim.html', context)
@@ -311,60 +342,56 @@ def reject_klaim(request, klaim_id):
 
 
 def transactions_redeem(request):
-    rewards = [
-        {
-            'id': 1,
-            'name': 'Voucher Makan Rp100.000',
-            'description': 'Voucher restoran mitra senilai Rp100.000',
-            'miles': 25000,
-            'image': 'https://via.placeholder.com/120x80?text=Voucher'
-        },
-        {
-            'id': 2,
-            'name': 'Upgrade Kelas',
-            'description': 'Upgrade ke kelas bisnis',
-            'miles': 50000,
-            'image': 'https://via.placeholder.com/120x80?text=Upgrade'
-        }
-    ]
-
-    history = [
-        {'id': 101, 'reward': 'Voucher Makan Rp100.000', 'miles': 25000, 'status': 'Sukses', 'date': '2026-04-10'},
-        {'id': 102, 'reward': 'Upgrade Kelas', 'miles': 50000, 'status': 'Dibatalkan', 'date': '2026-03-12'},
-    ]
-
-    context = {'role': 'Member', 'nama': 'Mr. John Doe', 'rewards': rewards, 'history': history}
+    data = get_dummy_data()
+    user_email = request.session.get('user_email', 'john@example.com')
+    history = data.get("REDEEM", [])
+    # Filter for logged in user
+    history = [h for h in history if h.get('email_member') == user_email]
+    
+    context = {
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'rewards': data.get("HADIAH", []),
+        'history': history
+    }
     return render(request, 'transactions/redeem_list.html', context)
 
 
 def transactions_buy_package(request):
-    packages = [
-        {'id': 'PKG-001', 'miles': 1000, 'price': 50000},
-        {'id': 'PKG-002', 'miles': 5000, 'price': 200000},
-        {'id': 'PKG-003', 'miles': 10000, 'price': 350000},
-        {'id': 'PKG-004', 'miles': 25000, 'price': 800000},
-    ]
-    history = [{'id': 201, 'package_id': 'PKG-002', 'miles': 5000, 'price': 200000, 'date': '2026-02-15'}]
-    context = {'role': 'Member', 'nama': 'Mr. John Doe', 'packages': packages, 'history': history}
+    data = get_dummy_data()
+    user_email = request.session.get('user_email', 'john@example.com')
+    history = data.get("MEMBER_AWARD_MILES_PACKAGE", [])
+    # Filter for logged in user
+    history = [h for h in history if h.get('email_member') == user_email]
+    
+    context = {
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'packages': data.get("AWARD_MILES_PACKAGE", []),
+        'history': history
+    }
     return render(request, 'transactions/buy_package.html', context)
 
 
 def transactions_transfer(request):
-    history = [
-        {'id': 301, 'to_email': 'alice@example.com', 'miles': 1500, 'date': '2026-04-20', 'status': 'Sukses'},
-    ]
-    context = {'role': 'Member', 'nama': 'Mr. John Doe', 'history': history}
+    data = get_dummy_data()
+    user_email = request.session.get('user_email', 'john@example.com')
+    history = data.get("TRANSFER", [])
+    # Filter for logged in user (as sender)
+    history = [h for h in history if h.get('sender') == user_email]
+    
+    context = {
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'history': history
+    }
     return render(request, 'transactions/transfer_miles.html', context)
 
 
 def transactions_tier_info(request):
+    data = get_dummy_data()
     current_miles = 42000
-    tiers = [
-        {'name': 'Blue', 'min_miles': 0, 'notes': ['Member awal'], 'color': 'secondary'},
-        {'name': 'Silver', 'min_miles': 10000, 'notes': ['Minimal 2 penerbangan'], 'color': 'info'},
-        {'name': 'Gold', 'min_miles': 30000, 'notes': ['Akses lounge', 'Prioritas boarding'], 'color': 'warning'},
-        {'name': 'Platinum', 'min_miles': 60000, 'notes': ['Bonus miles 50%', 'Concierge'], 'color': 'primary'},
-    ]
+    tiers = data.get("TIER", [])
     current_tier = tiers[0]
     for t in tiers:
         if current_miles >= t['min_miles']:
@@ -383,21 +410,44 @@ def transactions_tier_info(request):
     else:
         miles_to_next = 0
         progress = 100
-    context = {'role': 'Member', 'nama': 'Mr. John Doe', 'current_miles': current_miles, 'tiers': tiers, 'current_tier': current_tier, 'next_tier': next_tier, 'miles_to_next': miles_to_next, 'progress': progress}
+    context = {
+        'role': request.session.get('user_role', 'Member'),
+        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'current_miles': current_miles,
+        'tiers': tiers,
+        'current_tier': current_tier,
+        'next_tier': next_tier,
+        'miles_to_next': miles_to_next,
+        'progress': progress
+    }
     return render(request, 'transactions/tier_info.html', context)
 
 
 def transactions_report(request):
-    transactions = [
-        {'id': 1, 'member': 'Alice', 'type': 'Redeem', 'amount': 0, 'miles': -25000, 'status': 'Sukses', 'timestamp': '2026-04-10 09:12'},
-        {'id': 2, 'member': 'Bob', 'type': 'Transfer', 'amount': 0, 'miles': -5000, 'status': 'Sukses', 'timestamp': '2026-04-09 16:45'},
-        {'id': 3, 'member': 'Charlie', 'type': 'Purchase', 'amount': 200000, 'miles': 5000, 'status': 'Pending', 'timestamp': '2026-04-08 11:20'},
-        {'id': 4, 'member': 'Alice', 'type': 'Top-up', 'amount': 100000, 'miles': 1000, 'status': 'Sukses', 'timestamp': '2026-03-30 08:00'},
-    ]
+    data = get_dummy_data()
+    transactions = []
+    
+    # Add from REDEEM
+    for r in data.get("REDEEM", []):
+        transactions.append({'id': r['id'], 'member': r['email_member'], 'type': 'Redeem', 'amount': 0, 'miles': -r['miles'], 'status': r['status'], 'timestamp': r['date']})
+    # Add from TRANSFER
+    for t in data.get("TRANSFER", []):
+        transactions.append({'id': t['id'], 'member': t.get('sender', 'unknown'), 'type': 'Transfer', 'amount': 0, 'miles': -t['miles'], 'status': t['status'], 'timestamp': t['date']})
+    # Add from MEMBER_AWARD_MILES_PACKAGE
+    for p in data.get("MEMBER_AWARD_MILES_PACKAGE", []):
+        transactions.append({'id': p['id'], 'member': p.get('email_member', 'unknown'), 'type': 'Purchase', 'amount': p['price'], 'miles': p['miles'], 'status': 'Sukses', 'timestamp': p['date']})
+    
+    # Sort by timestamp descending
+    transactions.sort(key=lambda x: x['timestamp'], reverse=True)
     top = {}
     for t in transactions:
         top.setdefault(t['member'], 0)
         top[t['member']] += t.get('miles', 0)
     top_members = sorted([{'member': k, 'total_miles': v} for k, v in top.items()], key=lambda x: x['total_miles'], reverse=True)
-    context = {'role': 'Staff', 'nama': 'Staff Admin', 'transactions': transactions, 'top_members': top_members}
+    context = {
+        'role': request.session.get('user_role', 'Staff'),
+        'nama': request.session.get('user_name', 'Staff Admin'),
+        'transactions': transactions,
+        'top_members': top_members
+    }
     return render(request, 'transactions/transaction_report.html', context)
