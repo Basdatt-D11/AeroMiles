@@ -1,0 +1,2151 @@
+{
+    "TIER": [
+        {
+            "name": "Blue",
+            "min_miles": 0,
+            "notes": [
+                "Member awal"
+            ],
+            "color": "secondary"
+        },
+        {
+            "name": "Silver",
+            "min_miles": 10000,
+            "notes": [
+                "Minimal 2 penerbangan"
+            ],
+            "color": "info"
+        },
+        {
+            "name": "Gold",
+            "min_miles": 30000,
+            "notes": [
+                "Akses lounge",
+                "Prioritas boarding"
+            ],
+            "color": "warning"
+        },
+        {
+            "name": "Platinum",
+            "min_miles": 60000,
+            "notes": [
+                "Bonus miles 50%",
+                "Concierge"
+            ],
+            "color": "primary"
+        }
+    ],
+    "PENGGUNA": [
+        {
+            "email": "admin@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "john@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "alice@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "bob@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "charlie@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member6@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member7@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member8@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member9@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member10@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member11@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member12@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member13@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member14@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member15@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member16@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member17@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member18@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member19@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member20@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member21@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member22@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member23@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member24@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member25@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member26@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member27@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member28@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member29@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member30@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member31@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member32@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member33@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member34@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member35@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member36@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member37@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member38@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member39@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member40@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member41@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member42@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member43@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member44@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member45@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member46@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member47@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member48@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member49@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "member50@example.com",
+            "password": "password123",
+            "role": "Member"
+        },
+        {
+            "email": "staff2@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff3@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff4@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff5@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff6@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff7@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff8@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff9@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff10@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        },
+        {
+            "email": "staff11@aeromiles.com",
+            "password": "password123",
+            "role": "Staff"
+        }
+    ],
+    "MEMBER": [
+        {
+            "no_member": "M0001",
+            "email": "john@example.com",
+            "nama": "Mr. John William Doe",
+            "tier": "Gold",
+            "total_miles": 45000,
+            "award_miles": 32000,
+            "bergabung": "2024-01-15"
+        },
+        {
+            "no_member": "M0002",
+            "email": "alice@example.com",
+            "nama": "Alice Smith",
+            "tier": "Silver",
+            "total_miles": 15000,
+            "award_miles": 12000,
+            "bergabung": "2024-02-20"
+        },
+        {
+            "no_member": "M0003",
+            "email": "bob@example.com",
+            "nama": "Bob Johnson",
+            "tier": "Blue",
+            "total_miles": 5000,
+            "award_miles": 4500,
+            "bergabung": "2024-03-10"
+        },
+        {
+            "no_member": "M0004",
+            "email": "charlie@example.com",
+            "nama": "Charlie Brown",
+            "tier": "Platinum",
+            "total_miles": 65000,
+            "award_miles": 60000,
+            "bergabung": "2023-12-05"
+        },
+        {
+            "no_member": "M0005",
+            "email": "member5@example.com",
+            "nama": "Member Name 5",
+            "tier": "Gold",
+            "total_miles": 11988,
+            "award_miles": 520,
+            "bergabung": "2024-01-12"
+        },
+        {
+            "no_member": "M0006",
+            "email": "member6@example.com",
+            "nama": "Member Name 6",
+            "tier": "Gold",
+            "total_miles": 21038,
+            "award_miles": 68971,
+            "bergabung": "2024-01-03"
+        },
+        {
+            "no_member": "M0007",
+            "email": "member7@example.com",
+            "nama": "Member Name 7",
+            "tier": "Blue",
+            "total_miles": 6961,
+            "award_miles": 10889,
+            "bergabung": "2023-04-23"
+        },
+        {
+            "no_member": "M0008",
+            "email": "member8@example.com",
+            "nama": "Member Name 8",
+            "tier": "Platinum",
+            "total_miles": 71203,
+            "award_miles": 7097,
+            "bergabung": "2024-03-26"
+        },
+        {
+            "no_member": "M0009",
+            "email": "member9@example.com",
+            "nama": "Member Name 9",
+            "tier": "Silver",
+            "total_miles": 85775,
+            "award_miles": 69400,
+            "bergabung": "2024-01-16"
+        },
+        {
+            "no_member": "M0010",
+            "email": "member10@example.com",
+            "nama": "Member Name 10",
+            "tier": "Gold",
+            "total_miles": 37220,
+            "award_miles": 32747,
+            "bergabung": "2023-01-03"
+        },
+        {
+            "no_member": "M0011",
+            "email": "member11@example.com",
+            "nama": "Member Name 11",
+            "tier": "Blue",
+            "total_miles": 27257,
+            "award_miles": 56475,
+            "bergabung": "2023-09-16"
+        },
+        {
+            "no_member": "M0012",
+            "email": "member12@example.com",
+            "nama": "Member Name 12",
+            "tier": "Silver",
+            "total_miles": 15261,
+            "award_miles": 30424,
+            "bergabung": "2023-12-31"
+        },
+        {
+            "no_member": "M0013",
+            "email": "member13@example.com",
+            "nama": "Member Name 13",
+            "tier": "Platinum",
+            "total_miles": 28998,
+            "award_miles": 2131,
+            "bergabung": "2023-06-25"
+        },
+        {
+            "no_member": "M0014",
+            "email": "member14@example.com",
+            "nama": "Member Name 14",
+            "tier": "Silver",
+            "total_miles": 82279,
+            "award_miles": 60624,
+            "bergabung": "2024-02-02"
+        },
+        {
+            "no_member": "M0015",
+            "email": "member15@example.com",
+            "nama": "Member Name 15",
+            "tier": "Blue",
+            "total_miles": 78250,
+            "award_miles": 25898,
+            "bergabung": "2023-06-16"
+        },
+        {
+            "no_member": "M0016",
+            "email": "member16@example.com",
+            "nama": "Member Name 16",
+            "tier": "Silver",
+            "total_miles": 2427,
+            "award_miles": 31249,
+            "bergabung": "2024-03-24"
+        },
+        {
+            "no_member": "M0017",
+            "email": "member17@example.com",
+            "nama": "Member Name 17",
+            "tier": "Blue",
+            "total_miles": 35036,
+            "award_miles": 4536,
+            "bergabung": "2023-12-10"
+        },
+        {
+            "no_member": "M0018",
+            "email": "member18@example.com",
+            "nama": "Member Name 18",
+            "tier": "Blue",
+            "total_miles": 31015,
+            "award_miles": 76324,
+            "bergabung": "2023-11-17"
+        },
+        {
+            "no_member": "M0019",
+            "email": "member19@example.com",
+            "nama": "Member Name 19",
+            "tier": "Silver",
+            "total_miles": 46082,
+            "award_miles": 16554,
+            "bergabung": "2023-05-03"
+        },
+        {
+            "no_member": "M0020",
+            "email": "member20@example.com",
+            "nama": "Member Name 20",
+            "tier": "Blue",
+            "total_miles": 50906,
+            "award_miles": 46747,
+            "bergabung": "2023-10-21"
+        },
+        {
+            "no_member": "M0021",
+            "email": "member21@example.com",
+            "nama": "Member Name 21",
+            "tier": "Gold",
+            "total_miles": 68747,
+            "award_miles": 10553,
+            "bergabung": "2023-05-17"
+        },
+        {
+            "no_member": "M0022",
+            "email": "member22@example.com",
+            "nama": "Member Name 22",
+            "tier": "Blue",
+            "total_miles": 15796,
+            "award_miles": 4974,
+            "bergabung": "2023-07-15"
+        },
+        {
+            "no_member": "M0023",
+            "email": "member23@example.com",
+            "nama": "Member Name 23",
+            "tier": "Gold",
+            "total_miles": 88654,
+            "award_miles": 24736,
+            "bergabung": "2023-06-10"
+        },
+        {
+            "no_member": "M0024",
+            "email": "member24@example.com",
+            "nama": "Member Name 24",
+            "tier": "Silver",
+            "total_miles": 81301,
+            "award_miles": 33349,
+            "bergabung": "2023-10-21"
+        },
+        {
+            "no_member": "M0025",
+            "email": "member25@example.com",
+            "nama": "Member Name 25",
+            "tier": "Gold",
+            "total_miles": 26656,
+            "award_miles": 23701,
+            "bergabung": "2024-01-07"
+        },
+        {
+            "no_member": "M0026",
+            "email": "member26@example.com",
+            "nama": "Member Name 26",
+            "tier": "Blue",
+            "total_miles": 52930,
+            "award_miles": 52515,
+            "bergabung": "2023-12-25"
+        },
+        {
+            "no_member": "M0027",
+            "email": "member27@example.com",
+            "nama": "Member Name 27",
+            "tier": "Blue",
+            "total_miles": 27369,
+            "award_miles": 787,
+            "bergabung": "2023-03-16"
+        },
+        {
+            "no_member": "M0028",
+            "email": "member28@example.com",
+            "nama": "Member Name 28",
+            "tier": "Gold",
+            "total_miles": 68404,
+            "award_miles": 79388,
+            "bergabung": "2023-12-19"
+        },
+        {
+            "no_member": "M0029",
+            "email": "member29@example.com",
+            "nama": "Member Name 29",
+            "tier": "Blue",
+            "total_miles": 12336,
+            "award_miles": 21414,
+            "bergabung": "2024-02-25"
+        },
+        {
+            "no_member": "M0030",
+            "email": "member30@example.com",
+            "nama": "Member Name 30",
+            "tier": "Silver",
+            "total_miles": 38059,
+            "award_miles": 68000,
+            "bergabung": "2023-07-18"
+        },
+        {
+            "no_member": "M0031",
+            "email": "member31@example.com",
+            "nama": "Member Name 31",
+            "tier": "Blue",
+            "total_miles": 62482,
+            "award_miles": 3231,
+            "bergabung": "2023-09-18"
+        },
+        {
+            "no_member": "M0032",
+            "email": "member32@example.com",
+            "nama": "Member Name 32",
+            "tier": "Platinum",
+            "total_miles": 91907,
+            "award_miles": 3642,
+            "bergabung": "2024-01-05"
+        },
+        {
+            "no_member": "M0033",
+            "email": "member33@example.com",
+            "nama": "Member Name 33",
+            "tier": "Platinum",
+            "total_miles": 71474,
+            "award_miles": 18946,
+            "bergabung": "2023-03-15"
+        },
+        {
+            "no_member": "M0034",
+            "email": "member34@example.com",
+            "nama": "Member Name 34",
+            "tier": "Gold",
+            "total_miles": 75519,
+            "award_miles": 50692,
+            "bergabung": "2023-03-16"
+        },
+        {
+            "no_member": "M0035",
+            "email": "member35@example.com",
+            "nama": "Member Name 35",
+            "tier": "Gold",
+            "total_miles": 42765,
+            "award_miles": 65227,
+            "bergabung": "2024-03-18"
+        },
+        {
+            "no_member": "M0036",
+            "email": "member36@example.com",
+            "nama": "Member Name 36",
+            "tier": "Platinum",
+            "total_miles": 6000,
+            "award_miles": 47128,
+            "bergabung": "2023-04-02"
+        },
+        {
+            "no_member": "M0037",
+            "email": "member37@example.com",
+            "nama": "Member Name 37",
+            "tier": "Silver",
+            "total_miles": 70008,
+            "award_miles": 54605,
+            "bergabung": "2023-10-31"
+        },
+        {
+            "no_member": "M0038",
+            "email": "member38@example.com",
+            "nama": "Member Name 38",
+            "tier": "Blue",
+            "total_miles": 43240,
+            "award_miles": 50299,
+            "bergabung": "2023-11-23"
+        },
+        {
+            "no_member": "M0039",
+            "email": "member39@example.com",
+            "nama": "Member Name 39",
+            "tier": "Silver",
+            "total_miles": 71601,
+            "award_miles": 27333,
+            "bergabung": "2023-05-17"
+        },
+        {
+            "no_member": "M0040",
+            "email": "member40@example.com",
+            "nama": "Member Name 40",
+            "tier": "Blue",
+            "total_miles": 26166,
+            "award_miles": 47426,
+            "bergabung": "2023-07-08"
+        },
+        {
+            "no_member": "M0041",
+            "email": "member41@example.com",
+            "nama": "Member Name 41",
+            "tier": "Blue",
+            "total_miles": 74995,
+            "award_miles": 68905,
+            "bergabung": "2023-12-04"
+        },
+        {
+            "no_member": "M0042",
+            "email": "member42@example.com",
+            "nama": "Member Name 42",
+            "tier": "Gold",
+            "total_miles": 10171,
+            "award_miles": 61430,
+            "bergabung": "2023-09-26"
+        },
+        {
+            "no_member": "M0043",
+            "email": "member43@example.com",
+            "nama": "Member Name 43",
+            "tier": "Platinum",
+            "total_miles": 46997,
+            "award_miles": 44894,
+            "bergabung": "2023-10-26"
+        },
+        {
+            "no_member": "M0044",
+            "email": "member44@example.com",
+            "nama": "Member Name 44",
+            "tier": "Platinum",
+            "total_miles": 33561,
+            "award_miles": 75820,
+            "bergabung": "2023-12-01"
+        },
+        {
+            "no_member": "M0045",
+            "email": "member45@example.com",
+            "nama": "Member Name 45",
+            "tier": "Blue",
+            "total_miles": 41780,
+            "award_miles": 77553,
+            "bergabung": "2023-09-14"
+        },
+        {
+            "no_member": "M0046",
+            "email": "member46@example.com",
+            "nama": "Member Name 46",
+            "tier": "Silver",
+            "total_miles": 9746,
+            "award_miles": 56449,
+            "bergabung": "2023-12-11"
+        },
+        {
+            "no_member": "M0047",
+            "email": "member47@example.com",
+            "nama": "Member Name 47",
+            "tier": "Silver",
+            "total_miles": 11069,
+            "award_miles": 46931,
+            "bergabung": "2024-03-11"
+        },
+        {
+            "no_member": "M0048",
+            "email": "member48@example.com",
+            "nama": "Member Name 48",
+            "tier": "Silver",
+            "total_miles": 40207,
+            "award_miles": 6242,
+            "bergabung": "2023-07-29"
+        },
+        {
+            "no_member": "M0049",
+            "email": "member49@example.com",
+            "nama": "Member Name 49",
+            "tier": "Silver",
+            "total_miles": 16447,
+            "award_miles": 58594,
+            "bergabung": "2023-02-24"
+        },
+        {
+            "no_member": "M0050",
+            "email": "member50@example.com",
+            "nama": "Member Name 50",
+            "tier": "Platinum",
+            "total_miles": 56490,
+            "award_miles": 57733,
+            "bergabung": "2024-01-11"
+        }
+    ],
+    "STAF": [
+        {
+            "email": "admin@aeromiles.com",
+            "nama": "Mr. Admin Aero"
+        },
+        {
+            "email": "staff2@aeromiles.com",
+            "nama": "Staff Name 2"
+        },
+        {
+            "email": "staff3@aeromiles.com",
+            "nama": "Staff Name 3"
+        },
+        {
+            "email": "staff4@aeromiles.com",
+            "nama": "Staff Name 4"
+        },
+        {
+            "email": "staff5@aeromiles.com",
+            "nama": "Staff Name 5"
+        },
+        {
+            "email": "staff6@aeromiles.com",
+            "nama": "Staff Name 6"
+        },
+        {
+            "email": "staff7@aeromiles.com",
+            "nama": "Staff Name 7"
+        },
+        {
+            "email": "staff8@aeromiles.com",
+            "nama": "Staff Name 8"
+        },
+        {
+            "email": "staff9@aeromiles.com",
+            "nama": "Staff Name 9"
+        },
+        {
+            "email": "staff10@aeromiles.com",
+            "nama": "Staff Name 10"
+        }
+    ],
+    "MITRA": [
+        {
+            "email": "partner@traveloka.com",
+            "id_penyedia": "PYD-001",
+            "nama_mitra": "TravelokaPartner",
+            "tanggal_kerja_sama": "2023-01-15"
+        },
+        {
+            "email": "partner@plazapremium.com",
+            "id_penyedia": "PYD-002",
+            "nama_mitra": "Plaza Premium",
+            "tanggal_kerja_sama": "2023-06-01"
+        },
+        {
+            "email": "partner3@mitra.com",
+            "id_penyedia": "PYD-005",
+            "nama_mitra": "Mitra 3",
+            "tanggal_kerja_sama": "2024-01-01"
+        },
+        {
+            "email": "partner4@mitra.com",
+            "id_penyedia": "PYD-006",
+            "nama_mitra": "Mitra 4",
+            "tanggal_kerja_sama": "2024-01-01"
+        },
+        {
+            "email": "partner5@mitra.com",
+            "id_penyedia": "PYD-007",
+            "nama_mitra": "Mitra 5",
+            "tanggal_kerja_sama": "2024-01-01"
+        }
+    ],
+    "MASKAPAI": [
+        {
+            "id_penyedia": "PYD-008",
+            "nama_maskapai": "Garuda Indonesia"
+        },
+        {
+            "id_penyedia": "PYD-0010",
+            "nama_maskapai": "Airlines 2"
+        },
+        {
+            "id_penyedia": "PYD-0011",
+            "nama_maskapai": "Airlines 3"
+        },
+        {
+            "id_penyedia": "PYD-0012",
+            "nama_maskapai": "Airlines 4"
+        },
+        {
+            "id_penyedia": "PYD-0013",
+            "nama_maskapai": "Airlines 5"
+        }
+    ],
+    "PENYEDIA": [
+        {
+            "id": "PYD-001",
+            "tipe": "Mitra"
+        },
+        {
+            "id": "PYD-002",
+            "tipe": "Mitra"
+        },
+        {
+            "id": "PYD-005",
+            "tipe": "Mitra"
+        },
+        {
+            "id": "PYD-006",
+            "tipe": "Mitra"
+        },
+        {
+            "id": "PYD-007",
+            "tipe": "Mitra"
+        },
+        {
+            "id": "PYD-008",
+            "tipe": "Maskapai"
+        },
+        {
+            "id": "PYD-0010",
+            "tipe": "Maskapai"
+        },
+        {
+            "id": "PYD-0011",
+            "tipe": "Maskapai"
+        },
+        {
+            "id": "PYD-0012",
+            "tipe": "Maskapai"
+        },
+        {
+            "id": "PYD-0013",
+            "tipe": "Maskapai"
+        }
+    ],
+    "IDENTITAS": [
+        {
+            "nomor": "A12345678",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2020-01-15",
+            "habis": "2030-01-15",
+            "status": "Aktif",
+            "email_member": "john@example.com"
+        },
+        {
+            "nomor": "3275012345678901",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2019-06-01",
+            "habis": "2024-06-01",
+            "status": "Kedaluwarsa",
+            "email_member": "john@example.com"
+        },
+        {
+            "nomor": "SIM-001",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2021-03-10",
+            "habis": "2026-03-10",
+            "status": "Aktif",
+            "email_member": "john@example.com"
+        },
+        {
+            "nomor": "ID-178752",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2018-12-31",
+            "habis": "2023-12-30",
+            "status": "Kedaluwarsa",
+            "email_member": "member6@example.com"
+        },
+        {
+            "nomor": "ID-734930",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2021-01-16",
+            "habis": "2026-01-15",
+            "status": "Kedaluwarsa",
+            "email_member": "member31@example.com"
+        },
+        {
+            "nomor": "ID-748657",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2021-08-26",
+            "habis": "2026-08-25",
+            "status": "Aktif",
+            "email_member": "member26@example.com"
+        },
+        {
+            "nomor": "ID-683008",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2022-05-30",
+            "habis": "2027-05-29",
+            "status": "Aktif",
+            "email_member": "member45@example.com"
+        },
+        {
+            "nomor": "ID-149166",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2019-03-17",
+            "habis": "2024-03-15",
+            "status": "Kedaluwarsa",
+            "email_member": "member11@example.com"
+        },
+        {
+            "nomor": "ID-867327",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2021-10-25",
+            "habis": "2026-10-24",
+            "status": "Aktif",
+            "email_member": "member10@example.com"
+        },
+        {
+            "nomor": "ID-341134",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2019-04-23",
+            "habis": "2024-04-21",
+            "status": "Kedaluwarsa",
+            "email_member": "member46@example.com"
+        },
+        {
+            "nomor": "ID-101560",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2018-09-13",
+            "habis": "2023-09-12",
+            "status": "Kedaluwarsa",
+            "email_member": "member9@example.com"
+        },
+        {
+            "nomor": "ID-931688",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2020-08-23",
+            "habis": "2025-08-22",
+            "status": "Kedaluwarsa",
+            "email_member": "member14@example.com"
+        },
+        {
+            "nomor": "ID-234899",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2022-04-14",
+            "habis": "2027-04-13",
+            "status": "Aktif",
+            "email_member": "member13@example.com"
+        },
+        {
+            "nomor": "ID-192629",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2018-04-05",
+            "habis": "2023-04-04",
+            "status": "Kedaluwarsa",
+            "email_member": "member39@example.com"
+        },
+        {
+            "nomor": "ID-663772",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2021-12-01",
+            "habis": "2026-11-30",
+            "status": "Aktif",
+            "email_member": "member41@example.com"
+        },
+        {
+            "nomor": "ID-165053",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2020-02-19",
+            "habis": "2025-02-17",
+            "status": "Kedaluwarsa",
+            "email_member": "member41@example.com"
+        },
+        {
+            "nomor": "ID-236537",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2020-06-22",
+            "habis": "2025-06-21",
+            "status": "Kedaluwarsa",
+            "email_member": "member16@example.com"
+        },
+        {
+            "nomor": "ID-193339",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2019-01-11",
+            "habis": "2024-01-10",
+            "status": "Kedaluwarsa",
+            "email_member": "member5@example.com"
+        },
+        {
+            "nomor": "ID-871461",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2019-12-04",
+            "habis": "2024-12-02",
+            "status": "Kedaluwarsa",
+            "email_member": "bob@example.com"
+        },
+        {
+            "nomor": "ID-796999",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2020-06-02",
+            "habis": "2025-06-01",
+            "status": "Kedaluwarsa",
+            "email_member": "member29@example.com"
+        },
+        {
+            "nomor": "ID-969217",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2018-04-29",
+            "habis": "2023-04-28",
+            "status": "Kedaluwarsa",
+            "email_member": "member23@example.com"
+        },
+        {
+            "nomor": "ID-640662",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2018-11-25",
+            "habis": "2023-11-24",
+            "status": "Kedaluwarsa",
+            "email_member": "member36@example.com"
+        },
+        {
+            "nomor": "ID-750227",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2021-02-05",
+            "habis": "2026-02-04",
+            "status": "Kedaluwarsa",
+            "email_member": "member17@example.com"
+        },
+        {
+            "nomor": "ID-497411",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2021-04-20",
+            "habis": "2026-04-19",
+            "status": "Kedaluwarsa",
+            "email_member": "member5@example.com"
+        },
+        {
+            "nomor": "ID-293125",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2020-03-18",
+            "habis": "2025-03-17",
+            "status": "Kedaluwarsa",
+            "email_member": "member5@example.com"
+        },
+        {
+            "nomor": "ID-891063",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2020-03-30",
+            "habis": "2025-03-29",
+            "status": "Kedaluwarsa",
+            "email_member": "member42@example.com"
+        },
+        {
+            "nomor": "ID-129487",
+            "jenis": "KTP",
+            "negara": "Indonesia",
+            "terbit": "2019-10-19",
+            "habis": "2024-10-17",
+            "status": "Kedaluwarsa",
+            "email_member": "member30@example.com"
+        },
+        {
+            "nomor": "ID-745975",
+            "jenis": "SIM",
+            "negara": "Indonesia",
+            "terbit": "2018-07-05",
+            "habis": "2023-07-04",
+            "status": "Kedaluwarsa",
+            "email_member": "member33@example.com"
+        },
+        {
+            "nomor": "ID-494077",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2018-05-23",
+            "habis": "2023-05-22",
+            "status": "Kedaluwarsa",
+            "email_member": "member33@example.com"
+        },
+        {
+            "nomor": "ID-274721",
+            "jenis": "Paspor",
+            "negara": "Indonesia",
+            "terbit": "2021-06-03",
+            "habis": "2026-06-02",
+            "status": "Aktif",
+            "email_member": "member32@example.com"
+        }
+    ],
+    "AWARD_MILES_PACKAGE": [
+        {
+            "id": "PKG-001",
+            "miles": 1000,
+            "price": 50000
+        },
+        {
+            "id": "PKG-002",
+            "miles": 5000,
+            "price": 200000
+        },
+        {
+            "id": "PKG-003",
+            "miles": 10000,
+            "price": 350000
+        },
+        {
+            "id": "PKG-004",
+            "miles": 25000,
+            "price": 800000
+        },
+        {
+            "id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000
+        }
+    ],
+    "MEMBER_AWARD_MILES_PACKAGE": [
+        {
+            "id": 201,
+            "package_id": "PKG-002",
+            "miles": 5000,
+            "price": 200000,
+            "date": "2026-02-15"
+        },
+        {
+            "id": 202,
+            "package_id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000,
+            "date": "2026-02-08"
+        },
+        {
+            "id": 203,
+            "package_id": "PKG-002",
+            "miles": 5000,
+            "price": 200000,
+            "date": "2025-04-14"
+        },
+        {
+            "id": 204,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2026-02-25"
+        },
+        {
+            "id": 205,
+            "package_id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000,
+            "date": "2025-02-13"
+        },
+        {
+            "id": 206,
+            "package_id": "PKG-002",
+            "miles": 5000,
+            "price": 200000,
+            "date": "2025-09-16"
+        },
+        {
+            "id": 207,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2025-07-29"
+        },
+        {
+            "id": 208,
+            "package_id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000,
+            "date": "2025-08-15"
+        },
+        {
+            "id": 209,
+            "package_id": "PKG-002",
+            "miles": 5000,
+            "price": 200000,
+            "date": "2025-04-22"
+        },
+        {
+            "id": 210,
+            "package_id": "PKG-001",
+            "miles": 1000,
+            "price": 50000,
+            "date": "2026-03-04"
+        },
+        {
+            "id": 211,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2025-04-22"
+        },
+        {
+            "id": 212,
+            "package_id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000,
+            "date": "2025-04-18"
+        },
+        {
+            "id": 213,
+            "package_id": "PKG-001",
+            "miles": 1000,
+            "price": 50000,
+            "date": "2026-03-21"
+        },
+        {
+            "id": 214,
+            "package_id": "PKG-003",
+            "miles": 10000,
+            "price": 350000,
+            "date": "2025-10-20"
+        },
+        {
+            "id": 215,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2025-03-23"
+        },
+        {
+            "id": 216,
+            "package_id": "PKG-003",
+            "miles": 10000,
+            "price": 350000,
+            "date": "2025-02-04"
+        },
+        {
+            "id": 217,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2025-10-20"
+        },
+        {
+            "id": 218,
+            "package_id": "PKG-005",
+            "miles": 50000,
+            "price": 1500000,
+            "date": "2026-02-22"
+        },
+        {
+            "id": 219,
+            "package_id": "PKG-002",
+            "miles": 5000,
+            "price": 200000,
+            "date": "2025-01-23"
+        },
+        {
+            "id": 220,
+            "package_id": "PKG-004",
+            "miles": 25000,
+            "price": 800000,
+            "date": "2025-09-11"
+        }
+    ],
+    "BANDARA": [
+        {
+            "kode_iata": "CGK",
+            "nama": "Soekarno-Hatta",
+            "kota": "Jakarta",
+            "negara": "Indonesia"
+        },
+        {
+            "kode_iata": "DPS",
+            "nama": "Ngurah Rai",
+            "kota": "Bali",
+            "negara": "Indonesia"
+        },
+        {
+            "kode_iata": "A03",
+            "nama": "Airport 3",
+            "kota": "City 3",
+            "negara": "Country 3"
+        },
+        {
+            "kode_iata": "A04",
+            "nama": "Airport 4",
+            "kota": "City 4",
+            "negara": "Country 4"
+        },
+        {
+            "kode_iata": "A05",
+            "nama": "Airport 5",
+            "kota": "City 5",
+            "negara": "Country 5"
+        },
+        {
+            "kode_iata": "A06",
+            "nama": "Airport 6",
+            "kota": "City 6",
+            "negara": "Country 6"
+        },
+        {
+            "kode_iata": "A07",
+            "nama": "Airport 7",
+            "kota": "City 7",
+            "negara": "Country 7"
+        },
+        {
+            "kode_iata": "A08",
+            "nama": "Airport 8",
+            "kota": "City 8",
+            "negara": "Country 8"
+        },
+        {
+            "kode_iata": "A09",
+            "nama": "Airport 9",
+            "kota": "City 9",
+            "negara": "Country 9"
+        },
+        {
+            "kode_iata": "A10",
+            "nama": "Airport 10",
+            "kota": "City 10",
+            "negara": "Country 10"
+        },
+        {
+            "kode_iata": "A11",
+            "nama": "Airport 11",
+            "kota": "City 11",
+            "negara": "Country 11"
+        },
+        {
+            "kode_iata": "A12",
+            "nama": "Airport 12",
+            "kota": "City 12",
+            "negara": "Country 12"
+        },
+        {
+            "kode_iata": "A13",
+            "nama": "Airport 13",
+            "kota": "City 13",
+            "negara": "Country 13"
+        },
+        {
+            "kode_iata": "A14",
+            "nama": "Airport 14",
+            "kota": "City 14",
+            "negara": "Country 14"
+        },
+        {
+            "kode_iata": "A15",
+            "nama": "Airport 15",
+            "kota": "City 15",
+            "negara": "Country 15"
+        }
+    ],
+    "CLAIM_MISSING_MILES": [
+        {
+            "id": 1,
+            "email_member": "john@example.com",
+            "maskapai": "Emirates",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-11-06",
+            "flight_number": "GA-192",
+            "nomor_tiket": "TK-621377",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-4106",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-04-13 17:21:46.430637"
+        },
+        {
+            "id": 2,
+            "email_member": "john@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-06-03",
+            "flight_number": "GA-176",
+            "nomor_tiket": "TK-148218",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-8252",
+            "status": "Menunggu",
+            "timestamp_pengajuan": "2026-04-25 17:21:46.430637"
+        },
+        {
+            "id": 3,
+            "email_member": "john@example.com",
+            "maskapai": "Emirates",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "NRT",
+            "tanggal_penerbangan": "2026-03-23",
+            "flight_number": "GA-220",
+            "nomor_tiket": "TK-218970",
+            "kelas_kabin": "Economy",
+            "pnr": "PNR-5614",
+            "status": "Menunggu",
+            "timestamp_pengajuan": "2026-04-21 17:21:46.430637"
+        },
+        {
+            "id": 4,
+            "email_member": "john@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-12-11",
+            "flight_number": "GA-153",
+            "nomor_tiket": "TK-409587",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-3001",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-19 17:21:46.430637"
+        },
+        {
+            "id": 5,
+            "email_member": "john@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2025-07-04",
+            "flight_number": "GA-656",
+            "nomor_tiket": "TK-950269",
+            "kelas_kabin": "First",
+            "pnr": "PNR-9516",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-08 17:21:46.430637"
+        },
+        {
+            "id": 6,
+            "email_member": "member18@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2025-12-16",
+            "flight_number": "GA-336",
+            "nomor_tiket": "TK-589534",
+            "kelas_kabin": "Economy",
+            "pnr": "PNR-4161",
+            "status": "Menunggu",
+            "timestamp_pengajuan": "2026-04-24 17:21:46.430637"
+        },
+        {
+            "id": 7,
+            "email_member": "member34@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-05-01",
+            "flight_number": "GA-368",
+            "nomor_tiket": "TK-377582",
+            "kelas_kabin": "Economy",
+            "pnr": "PNR-3184",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-04-24 17:21:46.430637"
+        },
+        {
+            "id": 8,
+            "email_member": "member20@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "NRT",
+            "tanggal_penerbangan": "2025-12-19",
+            "flight_number": "GA-200",
+            "nomor_tiket": "TK-461175",
+            "kelas_kabin": "Economy",
+            "pnr": "PNR-4977",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-20 17:21:46.430637"
+        },
+        {
+            "id": 9,
+            "email_member": "member19@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-04-20",
+            "flight_number": "GA-783",
+            "nomor_tiket": "TK-404119",
+            "kelas_kabin": "First",
+            "pnr": "PNR-7758",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-03-31 17:21:46.430637"
+        },
+        {
+            "id": 10,
+            "email_member": "member44@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2025-09-02",
+            "flight_number": "GA-858",
+            "nomor_tiket": "TK-197855",
+            "kelas_kabin": "First",
+            "pnr": "PNR-8926",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-02 17:21:46.430637"
+        },
+        {
+            "id": 11,
+            "email_member": "member31@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-09-29",
+            "flight_number": "GA-798",
+            "nomor_tiket": "TK-526043",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-7033",
+            "status": "Menunggu",
+            "timestamp_pengajuan": "2026-04-24 17:21:46.430637"
+        },
+        {
+            "id": 12,
+            "email_member": "member46@example.com",
+            "maskapai": "Emirates",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "NRT",
+            "tanggal_penerbangan": "2026-02-05",
+            "flight_number": "GA-323",
+            "nomor_tiket": "TK-276464",
+            "kelas_kabin": "First",
+            "pnr": "PNR-5102",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-02 17:21:46.430637"
+        },
+        {
+            "id": 13,
+            "email_member": "member6@example.com",
+            "maskapai": "Emirates",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2026-01-21",
+            "flight_number": "GA-164",
+            "nomor_tiket": "TK-589329",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-7810",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-04-26 17:21:46.430637"
+        },
+        {
+            "id": 14,
+            "email_member": "member50@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2025-08-22",
+            "flight_number": "GA-858",
+            "nomor_tiket": "TK-857280",
+            "kelas_kabin": "First",
+            "pnr": "PNR-5171",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-04-26 17:21:46.430637"
+        },
+        {
+            "id": 15,
+            "email_member": "member31@example.com",
+            "maskapai": "Emirates",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2025-07-21",
+            "flight_number": "GA-504",
+            "nomor_tiket": "TK-691547",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-2249",
+            "status": "Menunggu",
+            "timestamp_pengajuan": "2026-04-21 17:21:46.430637"
+        },
+        {
+            "id": 16,
+            "email_member": "member42@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-08-15",
+            "flight_number": "GA-161",
+            "nomor_tiket": "TK-136216",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-5955",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-07 17:21:46.430637"
+        },
+        {
+            "id": 17,
+            "email_member": "member30@example.com",
+            "maskapai": "Garuda Indonesia",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "NRT",
+            "tanggal_penerbangan": "2026-03-26",
+            "flight_number": "GA-397",
+            "nomor_tiket": "TK-458552",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-7345",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-11 17:21:46.430637"
+        },
+        {
+            "id": 18,
+            "email_member": "member33@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "SIN",
+            "bandara_tujuan": "SIN",
+            "tanggal_penerbangan": "2026-03-25",
+            "flight_number": "GA-485",
+            "nomor_tiket": "TK-772865",
+            "kelas_kabin": "Business",
+            "pnr": "PNR-7738",
+            "status": "Ditolak",
+            "timestamp_pengajuan": "2026-03-31 17:21:46.430637"
+        },
+        {
+            "id": 19,
+            "email_member": "member7@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "DPS",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-10-05",
+            "flight_number": "GA-145",
+            "nomor_tiket": "TK-869221",
+            "kelas_kabin": "First",
+            "pnr": "PNR-3706",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-20 17:21:46.430637"
+        },
+        {
+            "id": 20,
+            "email_member": "member38@example.com",
+            "maskapai": "Singapore Airlines",
+            "bandara_asal": "CGK",
+            "bandara_tujuan": "HND",
+            "tanggal_penerbangan": "2025-06-08",
+            "flight_number": "GA-887",
+            "nomor_tiket": "TK-365205",
+            "kelas_kabin": "Economy",
+            "pnr": "PNR-6141",
+            "status": "Disetujui",
+            "timestamp_pengajuan": "2026-04-11 17:21:46.431207"
+        }
+    ],
+    "TRANSFER": [
+        {
+            "id": 301,
+            "sender": "john@example.com",
+            "to_email": "alice@example.com",
+            "miles": 1500,
+            "date": "2026-04-20",
+            "status": "Sukses"
+        },
+        {
+            "id": 302,
+            "sender": "member47@example.com",
+            "to_email": "member47@example.com",
+            "miles": 624,
+            "date": "2025-10-29",
+            "status": "Sukses"
+        },
+        {
+            "id": 303,
+            "sender": "member32@example.com",
+            "to_email": "member18@example.com",
+            "miles": 703,
+            "date": "2026-03-17",
+            "status": "Pending"
+        },
+        {
+            "id": 304,
+            "sender": "member5@example.com",
+            "to_email": "member46@example.com",
+            "miles": 1877,
+            "date": "2025-08-10",
+            "status": "Gagal"
+        },
+        {
+            "id": 305,
+            "sender": "member37@example.com",
+            "to_email": "member31@example.com",
+            "miles": 2787,
+            "date": "2025-11-20",
+            "status": "Gagal"
+        },
+        {
+            "id": 306,
+            "sender": "member26@example.com",
+            "to_email": "member33@example.com",
+            "miles": 4346,
+            "date": "2026-02-17",
+            "status": "Sukses"
+        },
+        {
+            "id": 307,
+            "sender": "member48@example.com",
+            "to_email": "member12@example.com",
+            "miles": 2111,
+            "date": "2025-09-23",
+            "status": "Gagal"
+        },
+        {
+            "id": 308,
+            "sender": "member5@example.com",
+            "to_email": "member10@example.com",
+            "miles": 4454,
+            "date": "2025-02-06",
+            "status": "Sukses"
+        },
+        {
+            "id": 309,
+            "sender": "member21@example.com",
+            "to_email": "member7@example.com",
+            "miles": 1701,
+            "date": "2025-03-11",
+            "status": "Pending"
+        },
+        {
+            "id": 310,
+            "sender": "member23@example.com",
+            "to_email": "member13@example.com",
+            "miles": 3913,
+            "date": "2025-07-07",
+            "status": "Gagal"
+        },
+        {
+            "id": 311,
+            "sender": "member31@example.com",
+            "to_email": "member29@example.com",
+            "miles": 2681,
+            "date": "2025-09-07",
+            "status": "Pending"
+        },
+        {
+            "id": 312,
+            "sender": "member10@example.com",
+            "to_email": "member5@example.com",
+            "miles": 1581,
+            "date": "2026-02-17",
+            "status": "Pending"
+        },
+        {
+            "id": 313,
+            "sender": "member35@example.com",
+            "to_email": "member15@example.com",
+            "miles": 4548,
+            "date": "2025-08-07",
+            "status": "Gagal"
+        },
+        {
+            "id": 314,
+            "sender": "member5@example.com",
+            "to_email": "alice@example.com",
+            "miles": 1891,
+            "date": "2025-12-13",
+            "status": "Pending"
+        },
+        {
+            "id": 315,
+            "sender": "member7@example.com",
+            "to_email": "member9@example.com",
+            "miles": 3665,
+            "date": "2025-03-16",
+            "status": "Gagal"
+        }
+    ],
+    "HADIAH": [
+        {
+            "kode": "RWD-001",
+            "nama": "Tiket Domestik PP",
+            "deskripsi": "Tiket pulang-pergi rute domestik Indonesia",
+            "penyedia": "Garuda Indonesia",
+            "tipe_penyedia": "airline",
+            "miles": 15000,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "id": "RWD-001",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-002",
+            "nama": "Upgrade ke Business Class",
+            "deskripsi": "Upgrade dari economy class ke business class",
+            "penyedia": "Garuda Indonesia",
+            "tipe_penyedia": "airline",
+            "miles": 25000,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "id": "RWD-002",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-003",
+            "nama": "Voucher Hotel Rp 500.000",
+            "deskripsi": "Voucher hotel Jabodetabek",
+            "penyedia": "TravelokaPartner",
+            "tipe_penyedia": "partner",
+            "miles": 8000,
+            "valid_start": "2024-06-01",
+            "program_end": "2025-06-30",
+            "id": "RWD-003",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-004",
+            "nama": "Akses Lounge 1x",
+            "deskripsi": "Akses lounge seluruh bandara internasional",
+            "penyedia": "Plaza Premium",
+            "tipe_penyedia": "partner",
+            "miles": 3000,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "id": "RWD-004",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "1",
+            "nama": "Voucher Makan Rp100.000",
+            "deskripsi": "Voucher restoran mitra senilai Rp100.000",
+            "penyedia": "Restoran Mitra",
+            "tipe_penyedia": "partner",
+            "miles": 25000,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "id": "1",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "2",
+            "nama": "Upgrade Kelas",
+            "deskripsi": "Upgrade ke kelas bisnis",
+            "penyedia": "Garuda Indonesia",
+            "tipe_penyedia": "airline",
+            "miles": 50000,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "id": "2",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-007",
+            "id": "RWD-007",
+            "nama": "Hadiah Dummy 7",
+            "deskripsi": "Deskripsi hadiah 7",
+            "penyedia": "Dummy Penyedia",
+            "tipe_penyedia": "partner",
+            "miles": 14039,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-008",
+            "id": "RWD-008",
+            "nama": "Hadiah Dummy 8",
+            "deskripsi": "Deskripsi hadiah 8",
+            "penyedia": "Dummy Penyedia",
+            "tipe_penyedia": "partner",
+            "miles": 13428,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-009",
+            "id": "RWD-009",
+            "nama": "Hadiah Dummy 9",
+            "deskripsi": "Deskripsi hadiah 9",
+            "penyedia": "Dummy Penyedia",
+            "tipe_penyedia": "partner",
+            "miles": 10327,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        },
+        {
+            "kode": "RWD-010",
+            "id": "RWD-010",
+            "nama": "Hadiah Dummy 10",
+            "deskripsi": "Deskripsi hadiah 10",
+            "penyedia": "Dummy Penyedia",
+            "tipe_penyedia": "partner",
+            "miles": 9715,
+            "valid_start": "2024-01-01",
+            "program_end": "2025-12-31",
+            "image": "https://via.placeholder.com/120x80?text=Hadiah"
+        }
+    ],
+    "REDEEM": [
+        {
+            "id": 101,
+            "email_member": "john@example.com",
+            "reward": "Voucher Makan Rp100.000",
+            "miles": 25000,
+            "status": "Sukses",
+            "date": "2026-04-10"
+        },
+        {
+            "id": 102,
+            "email_member": "john@example.com",
+            "reward": "Upgrade Kelas",
+            "miles": 50000,
+            "status": "Dibatalkan",
+            "date": "2026-03-12"
+        },
+        {
+            "id": 103,
+            "email_member": "member24@example.com",
+            "reward": "Hadiah Dummy 8",
+            "miles": 42147,
+            "status": "Dibatalkan",
+            "date": "2025-07-07"
+        },
+        {
+            "id": 104,
+            "email_member": "bob@example.com",
+            "reward": "Hadiah Dummy 7",
+            "miles": 36646,
+            "status": "Sukses",
+            "date": "2025-08-26"
+        },
+        {
+            "id": 105,
+            "email_member": "member23@example.com",
+            "reward": "Voucher Makan Rp100.000",
+            "miles": 16526,
+            "status": "Dibatalkan",
+            "date": "2025-09-20"
+        },
+        {
+            "id": 106,
+            "email_member": "member30@example.com",
+            "reward": "Hadiah Dummy 7",
+            "miles": 19343,
+            "status": "Pending",
+            "date": "2025-03-28"
+        },
+        {
+            "id": 107,
+            "email_member": "member42@example.com",
+            "reward": "Hadiah Dummy 9",
+            "miles": 35535,
+            "status": "Dibatalkan",
+            "date": "2025-01-10"
+        },
+        {
+            "id": 108,
+            "email_member": "member27@example.com",
+            "reward": "Voucher Makan Rp100.000",
+            "miles": 25091,
+            "status": "Dibatalkan",
+            "date": "2025-04-13"
+        },
+        {
+            "id": 109,
+            "email_member": "member50@example.com",
+            "reward": "Hadiah Dummy 9",
+            "miles": 19507,
+            "status": "Pending",
+            "date": "2025-08-06"
+        },
+        {
+            "id": 110,
+            "email_member": "member30@example.com",
+            "reward": "Tiket Domestik PP",
+            "miles": 27455,
+            "status": "Dibatalkan",
+            "date": "2025-10-31"
+        },
+        {
+            "id": 111,
+            "email_member": "member13@example.com",
+            "reward": "Voucher Makan Rp100.000",
+            "miles": 42030,
+            "status": "Pending",
+            "date": "2026-03-12"
+        },
+        {
+            "id": 112,
+            "email_member": "charlie@example.com",
+            "reward": "Voucher Hotel Rp 500.000",
+            "miles": 25481,
+            "status": "Sukses",
+            "date": "2026-02-11"
+        },
+        {
+            "id": 113,
+            "email_member": "member21@example.com",
+            "reward": "Hadiah Dummy 7",
+            "miles": 32528,
+            "status": "Dibatalkan",
+            "date": "2025-08-19"
+        },
+        {
+            "id": 114,
+            "email_member": "member37@example.com",
+            "reward": "Hadiah Dummy 8",
+            "miles": 17743,
+            "status": "Pending",
+            "date": "2025-03-21"
+        },
+        {
+            "id": 115,
+            "email_member": "bob@example.com",
+            "reward": "Voucher Makan Rp100.000",
+            "miles": 20103,
+            "status": "Sukses",
+            "date": "2026-03-25"
+        },
+        {
+            "id": 116,
+            "email_member": "member18@example.com",
+            "reward": "Upgrade ke Business Class",
+            "miles": 31607,
+            "status": "Pending",
+            "date": "2025-04-10"
+        },
+        {
+            "id": 117,
+            "email_member": "member24@example.com",
+            "reward": "Akses Lounge 1x",
+            "miles": 23211,
+            "status": "Sukses",
+            "date": "2026-01-13"
+        },
+        {
+            "id": 118,
+            "email_member": "member46@example.com",
+            "reward": "Hadiah Dummy 9",
+            "miles": 27105,
+            "status": "Pending",
+            "date": "2026-03-28"
+        },
+        {
+            "id": 119,
+            "email_member": "member44@example.com",
+            "reward": "Tiket Domestik PP",
+            "miles": 4142,
+            "status": "Dibatalkan",
+            "date": "2025-07-13"
+        },
+        {
+            "id": 120,
+            "email_member": "member21@example.com",
+            "reward": "Voucher Hotel Rp 500.000",
+            "miles": 7717,
+            "status": "Pending",
+            "date": "2025-07-15"
+        }
+    ]
+}
