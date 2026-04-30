@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from members.views import list_member, form_member, dashboard, list_identitas
+from members.views import list_member, form_member, dashboard, list_identitas, ajukan_klaim, riwayat_klaim, edit_klaim, batalkan_klaim, kelola_klaim, approve_klaim, reject_klaim
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,12 @@ urlpatterns = [
     path('members/add/', form_member, name='form_member'),
     path('', dashboard, name='dashboard'),
     path('members/identitas/', list_identitas, name='list_identitas'),
+    # Klaim URLs
+    path('klaim/ajukan/', ajukan_klaim, name='ajukan_klaim'),
+    path('klaim/riwayat/', riwayat_klaim, name='riwayat_klaim'),
+    path('klaim/edit/<int:klaim_id>/', edit_klaim, name='edit_klaim'),
+    path('klaim/batalkan/<int:klaim_id>/', batalkan_klaim, name='batalkan_klaim'),
+    path('klaim/kelola/', kelola_klaim, name='kelola_klaim'),
+    path('klaim/approve/<int:klaim_id>/', approve_klaim, name='approve_klaim'),
+    path('klaim/reject/<int:klaim_id>/', reject_klaim, name='reject_klaim'),
 ]

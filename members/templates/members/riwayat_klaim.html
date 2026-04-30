@@ -1,0 +1,182 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Riwayat Klaim{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+            <div>
+                <h4 class="mb-1">Klaim Missing Miles</h4>
+                <p class="text-muted mb-0">Lihat seluruh riwayat klaim Anda dan ajukan klaim baru jika miles belum tercatat.</p>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajukanKlaimModal">
+                <i class="bi bi-plus-lg me-1"></i> Ajukan Klaim
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="bg-white rounded-4 shadow-sm p-3">
+            <ul class="nav nav-pills gap-2 flex-wrap">
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill {% if not selected_status %}active{% endif %}" href="{% url 'riwayat_klaim' %}">Semua</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill {% if selected_status == 'Menunggu' %}active{% endif %}" href="{% url 'riwayat_klaim' %}?status=Menunggu">Menunggu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill {% if selected_status == 'Disetujui' %}active{% endif %}" href="{% url 'riwayat_klaim' %}?status=Disetujui">Disetujui</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-pill {% if selected_status == 'Ditolak' %}active{% endif %}" href="{% url 'riwayat_klaim' %}?status=Ditolak">Ditolak</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="table-container p-3">
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>No. Klaim</th>
+                            <th>Maskapai</th>
+                            <th>Rute</th>
+                            <th>Tanggal</th>
+                            <th>Flight</th>
+                            <th>Kelas</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if klaims %}
+                        {% for klaim in klaims %}
+                        <tr>
+                            <td>CLM-{{ klaim.id|stringformat:"03d" }}</td>
+                            <td>{{ klaim.maskapai }}</td>
+                            <td>{{ klaim.bandara_asal }} → {{ klaim.bandara_tujuan }}</td>
+                            <td>{{ klaim.tanggal_penerbangan|date:'d/m/Y' }}</td>
+                            <td>{{ klaim.flight_number }}</td>
+                            <td>{{ klaim.kelas_kabin }}</td>
+                            <td>
+                                <span class="badge rounded-pill {% if klaim.status == 'Menunggu' %}bg-warning text-dark{% elif klaim.status == 'Disetujui' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {{ klaim.status }}
+                                </span>
+                            </td>
+                            <td>{{ klaim.timestamp_pengajuan|date:'d/m/Y H:i' }}</td>
+                            <td class="text-nowrap">
+                                {% if klaim.status == 'Menunggu' %}
+                                <a href="{% url 'edit_klaim' klaim.id %}" class="btn btn-sm btn-outline-primary me-1">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#batalkanModal{{ klaim.id }}">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">Belum ada klaim yang diajukan.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if klaims %}
+{% for klaim in klaims %}
+<div class="modal fade" id="batalkanModal{{ klaim.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Batalkan Klaim?</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-3">Anda akan menghapus klaim berikut secara permanen:</p>
+                <p class="mb-2"><strong>No. Klaim:</strong> CLM-{{ klaim.id|stringformat:"03d" }}</p>
+                <p class="mb-2"><strong>Maskapai:</strong> {{ klaim.maskapai }}</p>
+                <p class="mb-0"><strong>Rute:</strong> {{ klaim.bandara_asal }} → {{ klaim.bandara_tujuan }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                <form method="post" action="{% url 'batalkan_klaim' klaim.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="modal fade" id="ajukanKlaimModal" tabindex="-1" aria-labelledby="ajukanKlaimModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ajukanKlaimModalLabel">Ajukan Klaim Baru</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'ajukan_klaim' %}">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Maskapai</label>
+                            {{ form.maskapai }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Kelas Kabin</label>
+                            {{ form.kelas_kabin }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Bandara Asal (IATA)</label>
+                            {{ form.bandara_asal }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Bandara Tujuan (IATA)</label>
+                            {{ form.bandara_tujuan }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tanggal Penerbangan</label>
+                            {{ form.tanggal_penerbangan }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Flight Number</label>
+                            {{ form.flight_number }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nomor Tiket</label>
+                            {{ form.nomor_tiket }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">PNR</label>
+                            {{ form.pnr }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Ajukan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
