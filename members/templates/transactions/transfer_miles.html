@@ -6,67 +6,93 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h4 class="m-0">Transfer Miles</h4>
-        <small class="text-muted">Kirimkan miles Anda ke member lain</small>
+        <h4 class="fw-bold m-0">Transfer Miles</h4>
+        <p class="text-muted small m-0">Award Miles tersedia: <span class="fw-bold">{{ user.total_miles|default:"0"|intcomma }}</span></p>
     </div>
     <div>
-        <span class="badge bg-light text-dark">Saldo Miles: <strong>12.500</strong></span>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#transferModal" style="background-color: #1E3A8A; border-radius: 8px;">
+            <i class="bi bi-plus-lg me-2"></i>Transfer Baru
+        </button>
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-            <h5 class="mb-3">Formulir Transfer</h5>
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Email Tujuan</label>
-                    <input type="email" class="form-control" placeholder="member@example.com" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Jumlah Miles</label>
-                    <input type="number" class="form-control" placeholder="0" min="100" required>
-                    <div class="form-text">Minimal transfer 100 miles.</div>
-                </div>
-                <div class="d-grid mt-4">
-                    <button type="button" class="btn btn-primary">Transfer Sekarang</button>
-                </div>
-            </form>
+<div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
+    <div class="card-body p-4">
+        <h5 class="fw-bold mb-4">Riwayat Transfer</h5>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="text-muted small">
+                    <tr>
+                        <th class="fw-normal">Waktu</th>
+                        <th class="fw-normal">Member</th>
+                        <th class="fw-normal">Jumlah Miles</th>
+                        <th class="fw-normal">Catatan</th>
+                        <th class="fw-normal">Tipe</th>
+                        <th class="fw-normal">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="small">
+                    {% for h in history %}
+                    <tr>
+                        <td class="text-muted">{{ h.timestamp }}</td>
+                        <td>
+                            <div class="fw-bold text-dark">{{ h.member_name }}</div>
+                            <div class="text-muted small">{{ h.member_email }}</div>
+                        </td>
+                        <td class="fw-bold {% if h.type == 'Kirim' %}text-danger{% else %}text-success{% endif %}">
+                            {% if h.type == 'Kirim' %}-{% else %}+{% endif %}{{ h.miles|intcomma }}
+                        </td>
+                        <td class="text-muted">{{ h.note }}</td>
+                        <td>
+                            <span class="badge rounded-pill {% if h.type == 'Kirim' %}bg-light text-dark border{% else %}bg-primary{% endif %}" style="font-size: 0.7rem; padding: 4px 12px;">
+                                {{ h.type }}
+                            </span>
+                        </td>
+                        <td>
+                            <i class="bi bi-lock-fill text-muted" style="cursor: not-allowed;" title="Tidak dapat diubah"></i>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">Belum ada riwayat transfer.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
-<h5 class="mb-3">Riwayat Transfer</h5>
-<div class="table-container p-3">
-    <table class="table mb-0 align-middle">
-        <thead>
-            <tr>
-                <th>ID Transfer</th>
-                <th>Tujuan</th>
-                <th>Jumlah</th>
-                <th>Tanggal</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for h in history %}
-            <tr>
-                <td>{{ h.id }}</td>
-                <td>{{ h.to_email }}</td>
-                <td>{{ h.miles|intcomma }}</td>
-                <td>{{ h.date }}</td>
-                <td>
-                    <span class="badge {% if h.status == 'Sukses' %}bg-success{% else %}bg-secondary{% endif %}">
-                        {{ h.status }}
-                    </span>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5" class="text-center text-muted">Belum ada riwayat transfer.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!-- Modal Transfer -->
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: 12px;">
+            <div class="modal-header border-bottom-0 pb-0">
+                <h5 class="modal-title fw-bold" id="transferModalLabel">Transfer Miles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="transferForm" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Email Penerima</label>
+                        <input type="email" name="recipient_email" class="form-control" placeholder="member@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Jumlah Miles</label>
+                        <input type="number" name="amount" class="form-control" placeholder="0" min="100" required>
+                        <div class="form-text small">Maksimal transfer: {{ user.total_miles|default:0|intcomma }} miles.</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold small">Catatan (opsional)</label>
+                        <textarea name="note" class="form-control" rows="3" placeholder="Hadiah"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary px-4" style="background-color: #1E3A8A; border-radius: 6px;">Transfer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

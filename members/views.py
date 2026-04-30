@@ -376,13 +376,64 @@ def transactions_buy_package(request):
 def transactions_transfer(request):
     data = get_dummy_data()
     user_email = request.session.get('user_email', 'john@example.com')
-    history = data.get("TRANSFER", [])
-    # Filter for logged in user (as sender)
-    history = [h for h in history if h.get('sender') == user_email]
+    members = data.get("MEMBER", [])
+    user_info = next((m for m in members if m['email'] == user_email), {})
     
+    if request.method == 'POST':
+        recipient_email = request.POST.get('recipient_email')
+        amount = int(request.POST.get('amount', 0))
+        note = request.POST.get('note', '')
+        
+        # Validations
+        if recipient_email == user_email:
+            messages.error(request, 'Anda tidak dapat mengirim miles ke diri sendiri.')
+        elif amount > user_info.get('total_miles', 0):
+            messages.error(request, 'Award miles Anda tidak mencukupi.')
+        elif not any(m['email'] == recipient_email for m in members):
+            messages.error(request, 'Email penerima tidak terdaftar sebagai member aktif.')
+        else:
+            # Simulate success (not writing to JSON to keep dummy clean)
+            messages.success(request, f'Berhasil mentransfer {amount} miles ke {recipient_email}.')
+            return redirect('transactions_transfer')
+
+    transfers = data.get("TRANSFER", [])
+    history = []
+    for t in transfers:
+        if t.get('sender') == user_email:
+            # Type: Sent (Kirim)
+            other_email = t.get('to_email')
+            other_member = next((m for m in members if m['email'] == other_email), {'nama': 'Unknown'})
+            history.append({
+                'timestamp': t.get('date', '') + ' 10:30', # Mocking time
+                'member_name': other_member.get('nama'),
+                'member_email': other_email,
+                'miles': t.get('miles', 0), # Positive value
+                'note': t.get('catatan', '-'),
+                'type': 'Kirim',
+                'status': t.get('status', 'Sukses')
+            })
+        elif t.get('to_email') == user_email:
+            # Type: Received (Terima)
+            other_email = t.get('sender')
+            other_member = next((m for m in members if m['email'] == other_email), {'nama': 'Unknown'})
+            history.append({
+                'timestamp': t.get('date', '') + ' 14:00', # Mocking time
+                'member_name': other_member.get('nama'),
+                'member_email': other_email,
+                'miles': t.get('miles', 0), # Positive value
+                'note': t.get('catatan', '-'),
+                'type': 'Terima',
+                'status': t.get('status', 'Sukses')
+            })
+    
+    # Sort by timestamp
+    history.sort(key=lambda x: x['timestamp'], reverse=True)
+
     context = {
         'role': request.session.get('user_role', 'Member'),
-        'nama': request.session.get('user_name', 'Mr. John Doe'),
+        'nama': request.session.get('user_name', user_info.get('nama', 'Mr. John Doe')),
+        'email': user_email,
+        'user': user_info,
         'history': history
     }
     return render(request, 'transactions/transfer_miles.html', context)
