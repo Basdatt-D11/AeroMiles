@@ -63,7 +63,7 @@
                             <td>CLM-{{ klaim.id|stringformat:"03d" }}</td>
                             <td>{{ klaim.maskapai }}</td>
                             <td>{{ klaim.bandara_asal }} → {{ klaim.bandara_tujuan }}</td>
-                            <td>{{ klaim.tanggal_penerbangan|date:'d/m/Y' }}</td>
+                            <td>{{ klaim.tanggal_penerbangan }}</td>
                             <td>{{ klaim.flight_number }}</td>
                             <td>{{ klaim.kelas_kabin }}</td>
                             <td>
@@ -71,7 +71,7 @@
                                     {{ klaim.status }}
                                 </span>
                             </td>
-                            <td>{{ klaim.timestamp_pengajuan|date:'d/m/Y H:i' }}</td>
+                            <td>{{ klaim.timestamp_pengajuan|slice:":16" }}</td>
                             <td class="text-nowrap">
                                 {% if klaim.status == 'Menunggu' %}
                                 <a href="{% url 'edit_klaim' klaim.id %}" class="btn btn-sm btn-outline-primary me-1">

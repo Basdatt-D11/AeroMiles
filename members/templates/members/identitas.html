@@ -24,13 +24,18 @@
             </tr>
         </thead>
         <tbody>
+            {% for iden in identitas_list %}
             <tr>
-                <td class="ps-4"><strong>A12345678</strong></td>
-                <td>Paspor</td>
-                <td>Indonesia</td>
-                <td>2020-01-15</td>
-                <td>2030-01-15</td>
-                <td><span class="badge bg-success">Aktif</span></td>
+                <td class="ps-4"><strong>{{ iden.nomor }}</strong></td>
+                <td>{{ iden.jenis }}</td>
+                <td>{{ iden.negara }}</td>
+                <td>{{ iden.terbit }}</td>
+                <td>{{ iden.habis }}</td>
+                <td>
+                    <span class="badge {% if iden.status == 'Aktif' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ iden.status }}
+                    </span>
+                </td>
                 <td class="text-center pe-4">
                     <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
                         data-bs-target="#editModal1"><i class="bi bi-pencil"></i></button>
@@ -38,20 +43,11 @@
                         data-bs-target="#deleteIdentitasModal"><i class="bi bi-trash"></i></button>
                 </td>
             </tr>
+            {% empty %}
             <tr>
-                <td class="ps-4"><strong>3275012345678901</strong></td>
-                <td>KTP</td>
-                <td>Indonesia</td>
-                <td>2019-06-01</td>
-                <td>2024-06-01</td>
-                <td><span class="badge bg-danger">Kedaluwarsa</span></td>
-                <td class="text-center pe-4">
-                    <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
-                        data-bs-target="#editModal2"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-sm btn-light btn-action text-danger" data-bs-toggle="modal"
-                        data-bs-target="#deleteIdentitasModal"><i class="bi bi-trash"></i></button>
-                </td>
+                <td colspan="7" class="text-center text-muted py-4">Belum ada data identitas.</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

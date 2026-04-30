@@ -38,10 +38,10 @@
                         {% for klaim in klaims %}
                         <tr>
                             <td>CLM-{{ klaim.id|stringformat:"03d" }}</td>
-                            <td>{{ klaim.member.nama }}</td>
+                            <td>{{ klaim.email_member }}</td>
                             <td>{{ klaim.maskapai }}</td>
                             <td>{{ klaim.bandara_asal }} → {{ klaim.bandara_tujuan }}</td>
-                            <td>{{ klaim.tanggal_penerbangan|date:'d/m/Y' }}</td>
+                            <td>{{ klaim.tanggal_penerbangan }}</td>
                             <td>{{ klaim.flight_number }}</td>
                             <td>{{ klaim.kelas_kabin }}</td>
                             <td>
@@ -49,7 +49,7 @@
                                     {{ klaim.status }}
                                 </span>
                             </td>
-                            <td>{{ klaim.timestamp_pengajuan|date:'d/m/Y H:i' }}</td>
+                            <td>{{ klaim.timestamp_pengajuan|slice:":16" }}</td>
                             <td class="text-nowrap">
                                 {% if klaim.status == 'Menunggu' %}
                                 <a href="{% url 'approve_klaim' klaim.id %}" class="btn btn-sm btn-success me-1">Approve</a>

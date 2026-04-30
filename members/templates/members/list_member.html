@@ -37,14 +37,19 @@
             </tr>
         </thead>
         <tbody>
+            {% for m in member_list %}
             <tr>
-                <td class="ps-4"><strong>M0001</strong></td>
-                <td>Mr. John William Doe</td>
-                <td>john@example.com</td>
-                <td><span class="badge bg-warning text-dark">Gold</span></td>
-                <td>45,000</td>
-                <td>32,000</td>
-                <td>2024-01-15</td>
+                <td class="ps-4"><strong>{{ m.no_member }}</strong></td>
+                <td>{{ m.nama }}</td>
+                <td>{{ m.email }}</td>
+                <td>
+                    <span class="badge {% if m.tier == 'Gold' %}bg-warning text-dark{% elif m.tier == 'Silver' %}bg-light text-dark border{% elif m.tier == 'Platinum' %}bg-primary{% else %}bg-secondary{% endif %}">
+                        {{ m.tier }}
+                    </span>
+                </td>
+                <td>{{ m.total_miles }}</td>
+                <td>{{ m.award_miles }}</td>
+                <td>{{ m.bergabung }}</td>
                 <td class="text-center pe-4">
                     <button class="btn btn-sm btn-light btn-action me-1" data-bs-toggle="modal"
                         data-bs-target="#editMemberModal">
@@ -56,6 +61,11 @@
                     </button>
                 </td>
             </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center text-muted py-4">Belum ada data member.</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
