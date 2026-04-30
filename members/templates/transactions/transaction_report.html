@@ -5,18 +5,55 @@
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h4 class="m-0">Laporan & Riwayat Transaksi</h4>
-        <small class="text-muted">Filter dan pantau aktivitas transaksi member</small>
+<div class="mb-4">
+    <h4 class="m-0">Laporan & Riwayat Transaksi</h4>
+    <small class="text-muted">Filter dan pantau aktivitas transaksi member</small>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-sm-4">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Total Miles Beredar</small>
+                    <div class="h5 mb-0">{{ total_miles_beredar|intcomma }}</div>
+                </div>
+                <div>
+                    <span class="badge bg-light text-dark">&nbsp;</span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <a href="#" class="btn btn-light">Export CSV</a>
+    <div class="col-sm-4">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Total Redeem Bulan Ini</small>
+                    <div class="h5 mb-0">{{ total_redeem_bulan_ini|intcomma }}</div>
+                </div>
+                <div>
+                    <span class="badge bg-light text-dark">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Total Klaim Disetujui</small>
+                    <div class="h5 mb-0">{{ total_klaim_disetujui }}</div>
+                </div>
+                <div>
+                    <span class="badge bg-light text-dark">&nbsp;</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card p-3 mb-3">
             <form class="row g-2 align-items-center">
                 <div class="col-auto">
@@ -39,57 +76,83 @@
             </form>
         </div>
 
-        <div class="table-container p-3">
-            <table class="table mb-0 align-middle">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Member</th>
-                        <th>Tipe</th>
-                        <th>Miles</th>
-                        <th>Harga</th>
-                        <th>Status</th>
-                        <th>Waktu</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for t in transactions %}
-                    <tr>
-                        <td>{{ t.id }}</td>
-                        <td>{{ t.member }}</td>
-                        <td>{{ t.type }}</td>
-                        <td>{{ t.miles }}</td>
-                        <td>{% if t.amount %}Rp {{ t.amount|intcomma }}{% else %}-{% endif %}</td>
-                        <td>{{ t.status }}</td>
-                        <td>{{ t.timestamp }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-light me-1">Detail</button>
-                            <button class="btn btn-sm btn-danger btn-delete" data-id="{{ t.id }}">Hapus</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-4">
         <div class="card p-3 mb-3">
-            <h6 class="mb-3">Top Members (by miles)</h6>
-            <ul class="list-unstyled mb-0">
-                {% for m in top_members %}
-                <li class="d-flex justify-content-between py-2 border-bottom">
-                    <div>{{ m.member }}</div>
-                    <div class="text-muted">{{ m.total_miles }}</div>
+            <ul class="nav nav-tabs" id="txnTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="riwayat-tab" data-bs-toggle="tab" data-bs-target="#riwayat" type="button" role="tab">Riwayat Transaksi</button>
                 </li>
-                {% endfor %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="top-tab" data-bs-toggle="tab" data-bs-target="#top" type="button" role="tab">Top Member</button>
+                </li>
             </ul>
-        </div>
 
-        <div class="card p-3">
-            <h6>Petunjuk</h6>
-            <p class="small text-muted mb-0">Gunakan filter untuk menampilkan transaksi tertentu. Tombol Hapus hanya demo.</p>
+            <div class="tab-content pt-3">
+                <div class="tab-pane fade show active" id="riwayat" role="tabpanel" aria-labelledby="riwayat-tab">
+                    <div class="table-container p-0">
+                        <table class="table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Member</th>
+                                    <th>Tipe</th>
+                                    <th>Miles</th>
+                                    <th>Harga</th>
+                                    <th>Status</th>
+                                    <th>Waktu</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for t in transactions %}
+                                <tr>
+                                    <td>{{ t.id }}</td>
+                                    <td>{{ t.member }}</td>
+                                    <td>{{ t.type }}</td>
+                                    <td>
+                                        {% if t.miles and t.miles < 0 %}
+                                            <span class="text-danger">{{ t.miles|intcomma }}</span>
+                                        {% else %}
+                                            <span class="text-success">{% if t.miles and t.miles > 0 %}+{% endif %}{{ t.miles|intcomma }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{% if t.amount %}Rp {{ t.amount|intcomma }}{% else %}-{% endif %}</td>
+                                    <td>{{ t.status }}</td>
+                                    <td>{{ t.timestamp }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger btn-delete" data-id="{{ t.id }}">Hapus</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="top" role="tabpanel" aria-labelledby="top-tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Member</th>
+                                    <th>Total Miles</th>
+                                    <th>Jumlah Transaksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in top_members %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ m.member }}</td>
+                                    <td>{{ m.total_miles }}</td>
+                                    <td>{{ m.jumlah_transaksi }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

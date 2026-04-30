@@ -1,5 +1,6 @@
 import os
 import json
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
@@ -478,13 +479,48 @@ def transactions_report(request):
     transactions.sort(key=lambda x: x['timestamp'], reverse=True)
     top = {}
     for t in transactions:
-        top.setdefault(t['member'], 0)
-        top[t['member']] += t.get('miles', 0)
-    top_members = sorted([{'member': k, 'total_miles': v} for k, v in top.items()], key=lambda x: x['total_miles'], reverse=True)
+        member = t['member']
+        top.setdefault(member, {'total_miles': 0, 'count': 0})
+        top[member]['total_miles'] += t.get('miles', 0)
+        top[member]['count'] += 1
+    top_members = sorted([
+        {'member': k, 'total_miles': v['total_miles'], 'jumlah_transaksi': v['count']}
+        for k, v in top.items()
+    ], key=lambda x: x['total_miles'], reverse=True)
+    # Statistik ringkasan untuk header cards
+    # Total miles beredar: total_miles field dari setiap MEMBER (fallback sum of top totals)
+    total_miles_beredar = 0
+    members = data.get('MEMBER', [])
+    if members:
+        for m in members:
+            total_miles_beredar += m.get('total_miles', 0)
+    else:
+        # fallback: sum of positive miles in transactions
+        total_miles_beredar = sum([t.get('miles', 0) for t in transactions if t.get('miles', 0) > 0])
+
+    # Total redeem bulan ini
+    now = datetime.now()
+    month_prefix = now.strftime('%Y-%m')
+    total_redeem_bulan_ini = 0
+    for r in data.get('REDEEM', []):
+        if str(r.get('date', '')).startswith(month_prefix):
+            total_redeem_bulan_ini += r.get('miles', 0)
+
+    # Total klaim disetujui
+    total_klaim_disetujui = 0
+    for k in data.get('CLAIM_MISSING_MILES', []):
+        if k.get('status') == 'Disetujui':
+            total_klaim_disetujui += 1
     context = {
         'role': request.session.get('user_role', 'Staff'),
         'nama': request.session.get('user_name', 'Staff Admin'),
         'transactions': transactions,
         'top_members': top_members
     }
+    # tambahkan ringkasan statistik ke context
+    context.update({
+        'total_miles_beredar': total_miles_beredar,
+        'total_redeem_bulan_ini': total_redeem_bulan_ini,
+        'total_klaim_disetujui': total_klaim_disetujui,
+    })
     return render(request, 'transactions/transaction_report.html', context)
