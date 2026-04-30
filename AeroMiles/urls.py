@@ -16,10 +16,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from members.views import list_member, form_member, dashboard, list_identitas, redeem_list, buy_package, tier_info, transaction_report, transactions_redeem, transactions_buy_package, transactions_tier_info, transactions_report
+from members.views import (
+    list_member,
+    form_member,
+    dashboard,
+    list_identitas,
+    redeem_list,
+    buy_package,
+    tier_info,
+    transaction_report,
+    transactions_redeem,
+    transactions_buy_package,
+    transactions_tier_info,
+    transactions_report,
+    ajukan_klaim,
+    riwayat_klaim,
+    edit_klaim,
+    batalkan_klaim,
+    kelola_klaim,
+    approve_klaim,
+    reject_klaim,
+    login_register,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', login_register, name='login_register'),
+    path('dashboard/', dashboard, name='dashboard'),
     path('members/list/', list_member, name='list_member'),
     path('members/add/', form_member, name='form_member'),
     path('members/redeem/', redeem_list, name='redeem_list'),
@@ -31,6 +54,13 @@ urlpatterns = [
     path('transactions/buy-package/', transactions_buy_package, name='transactions_buy_package'),
     path('transactions/tier/', transactions_tier_info, name='transactions_tier_info'),
     path('transactions/report/', transactions_report, name='transactions_report'),
-    path('', dashboard, name='dashboard'),
     path('members/identitas/', list_identitas, name='list_identitas'),
+    # Klaim URLs
+    path('klaim/ajukan/', ajukan_klaim, name='ajukan_klaim'),
+    path('klaim/riwayat/', riwayat_klaim, name='riwayat_klaim'),
+    path('klaim/edit/<int:klaim_id>/', edit_klaim, name='edit_klaim'),
+    path('klaim/batalkan/<int:klaim_id>/', batalkan_klaim, name='batalkan_klaim'),
+    path('klaim/kelola/', kelola_klaim, name='kelola_klaim'),
+    path('klaim/approve/<int:klaim_id>/', approve_klaim, name='approve_klaim'),
+    path('klaim/reject/<int:klaim_id>/', reject_klaim, name='reject_klaim'),
 ]

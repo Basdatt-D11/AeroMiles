@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroMiles - Login & Registrasi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --aero-primary: #0052CC;
+            --aero-secondary: #2684FF;
+            --aero-accent: #00B8D9;
+            --aero-bg: #F4F5F7;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--aero-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-navbar {
+            background-color: #1a2746;
+            padding: 0.75rem 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .auth-navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .auth-navbar .brand i {
+            font-size: 1.5rem;
+            color: #00B8D9;
+        }
+
+        .auth-navbar-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-auth {
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s ease;
+        }
+
+        .btn-login {
+            color: rgba(255, 255, 255, 0.85);
+            background: transparent;
+        }
+
+        .btn-login:hover {
+            color: white;
+        }
+
+        .btn-register {
+            background-color: #FFB800;
+            color: #1a2746;
+            font-weight: 600;
+        }
+
+        .btn-register:hover {
+            background-color: #FFC92E;
+            color: #1a2746;
+        }
+
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-width: 480px;
+            width: 100%;
+            padding: 3rem 2.5rem;
+            text-align: center;
+        }
+
+        .auth-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--aero-primary) 0%, var(--aero-secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .auth-icon i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .auth-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #172B4D;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-subtitle {
+            font-size: 0.9rem;
+            color: #626F86;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #172B4D;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid #e0e6ed;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--aero-primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e6ed;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #626F86;
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+        .role-option input[type="radio"]:checked + span {
+            color: white;
+        }
+
+        .role-option input[type="radio"]:checked ~ .role-option {
+            background-color: var(--aero-primary);
+            border-color: var(--aero-primary);
+        }
+
+        .role-option:has(input[type="radio"]:checked) {
+            background-color: var(--aero-primary);
+            border-color: var(--aero-primary);
+            color: white;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, var(--aero-primary) 0%, var(--aero-secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.3);
+        }
+
+        .switch-text {
+            font-size: 0.875rem;
+            color: #626F86;
+            margin-top: 1.5rem;
+        }
+
+        .switch-text a {
+            color: var(--aero-primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .switch-text a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-custom {
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 1.5rem;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #registerFields {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        #registerFields.show {
+            max-height: 1500px;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 576px) {
+            .form-row-2, .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="auth-navbar">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="#" class="brand">
+                <i class="bi bi-airplane-fill"></i>
+                AeroMiles
+            </a>
+            <div class="auth-navbar-buttons">
+                <button class="btn-auth btn-login" id="navLogin">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                </button>
+                <button class="btn-auth btn-register" id="navRegister">
+                    <i class="bi bi-person-plus me-2"></i>Registrasi
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <div class="auth-card" id="loginCard">
+            <div class="auth-icon">
+                <i class="bi bi-box-arrow-in-right"></i>
+            </div>
+            <h2 class="auth-title">Selamat Datang</h2>
+            <p class="auth-subtitle">Masuk ke akun AeroMiles Anda</p>
+
+            <div id="loginAlert"></div>
+
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Log In</button>
+            </form>
+
+            <p class="switch-text">
+                Belum punya akun? <a id="switchToRegister">Daftar di sini</a>
+            </p>
+        </div>
+
+        <div class="auth-card hidden" id="registerCard">
+            <div class="auth-icon">
+                <i class="bi bi-person-plus"></i>
+            </div>
+            <h2 class="auth-title">Daftar Akun Baru</h2>
+            <p class="auth-subtitle">Bergabung dengan program AeroMiles</p>
+
+            <div id="registerAlert"></div>
+
+            <form id="registerForm" novalidate>
+                <div class="form-group">
+                    <label>Pilih Peran</label>
+                    <div class="role-selector">
+                        <label class="role-option">
+                            <input type="radio" name="role" value="Member" checked>
+                            <span>Member</span>
+                        </label>
+                        <label class="role-option">
+                            <input type="radio" name="role" value="Staff">
+                            <span>Staff</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="registerFields">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="regEmail" placeholder="email@example.com" required>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" id="regPassword" placeholder="Min. 6 karakter" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Konfirmasi Password</label>
+                            <input type="password" class="form-control" id="regPasswordConfirm" placeholder="Ketik ulang" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Salutation</label>
+                            <select class="form-select" id="regSalutation" required>
+                                <option value="">Pilih...</option>
+                                <option>Mr.</option>
+                                <option>Ms.</option>
+                                <option>Mrs.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Depan</label>
+                            <input type="text" class="form-control" id="regFirstName" placeholder="Nama depan" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Nama Tengah</label>
+                            <input type="text" class="form-control" id="regMiddleName" placeholder="Nama tengah (opsional)">
+                        </div>
+                        <div class="form-group">
+                            <label>Nama Belakang</label>
+                            <input type="text" class="form-control" id="regLastName" placeholder="Nama belakang" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Country Code</label>
+                            <select class="form-select" id="regCountryCode" required>
+                                <option value="">Pilih...</option>
+                                <option>+62</option>
+                                <option>+1</option>
+                                <option>+44</option>
+                                <option>+60</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor HP</label>
+                            <input type="tel" class="form-control" id="regPhone" placeholder="81234567890" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" class="form-control" id="regBirthdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kewarganegaraan</label>
+                            <select class="form-select" id="regNationality" required>
+                                <option value="">Pilih...</option>
+                                <option>Indonesia</option>
+                                <option>Malaysia</option>
+                                <option>Singapura</option>
+                                <option>Thailand</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group hidden" id="airlineField">
+                        <label>Kode Maskapai</label>
+                        <select class="form-select" id="regAirlineCode">
+                            <option value="">Pilih maskapai...</option>
+                            <option>GA - Garuda Indonesia</option>
+                            <option>QZ - AirAsia</option>
+                            <option>JT - Lion Air</option>
+                            <option>SJ - Sriwijaya Air</option>
+                            <option>IW - Indonesia AirAsia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Daftar</button>
+            </form>
+
+            <p class="switch-text">
+                Sudah punya akun? <a id="switchToLogin">Masuk di sini</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const loginCard = document.getElementById('loginCard');
+        const registerCard = document.getElementById('registerCard');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const navLogin = document.getElementById('navLogin');
+        const navRegister = document.getElementById('navRegister');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const registerFields = document.getElementById('registerFields');
+        const roleRadios = document.querySelectorAll('input[name="role"]');
+        const airlineField = document.getElementById('airlineField');
+
+        function showLogin() {
+            loginCard.classList.remove('hidden');
+            registerCard.classList.add('hidden');
+        }
+
+        function showRegister() {
+            loginCard.classList.add('hidden');
+            registerCard.classList.remove('hidden');
+            registerFields.classList.add('show');
+            updateAirlineField();
+        }
+
+        function updateAirlineField() {
+            const role = document.querySelector('input[name="role"]:checked').value;
+            if (role === 'Staff') {
+                airlineField.classList.remove('hidden');
+            } else {
+                airlineField.classList.add('hidden');
+            }
+        }
+
+        navLogin.addEventListener('click', showLogin);
+        navRegister.addEventListener('click', showRegister);
+        switchToLogin.addEventListener('click', showLogin);
+        switchToRegister.addEventListener('click', showRegister);
+
+        roleRadios.forEach(radio => {
+            radio.addEventListener('change', updateAirlineField);
+        });
+
+        function showAlert(containerId, type, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <div class="alert alert-${type} alert-custom alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+        }
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const errors = [];
+
+            if (!email) errors.push('Email wajib diisi');
+            if (!password) errors.push('Password wajib diisi');
+
+            if (errors.length > 0) {
+                showAlert('loginAlert', 'danger', errors.join('<br>'));
+                return;
+            }
+
+            const role = email.toLowerCase().includes('staff') ? 'Staff' : 'Member';
+            window.location.href = `/dashboard/?role=${encodeURIComponent(role)}`;
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value.trim();
+            const salutation = document.getElementById('regSalutation').value;
+            const firstName = document.getElementById('regFirstName').value.trim();
+            const lastName = document.getElementById('regLastName').value.trim();
+            const countryCode = document.getElementById('regCountryCode').value;
+            const phone = document.getElementById('regPhone').value.trim();
+            const birthdate = document.getElementById('regBirthdate').value;
+            const nationality = document.getElementById('regNationality').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+            const errors = [];
+
+            if (!email) errors.push('Email wajib diisi');
+            if (!password) errors.push('Password wajib diisi');
+            if (!passwordConfirm) errors.push('Konfirmasi password wajib diisi');
+            if (password && passwordConfirm && password !== passwordConfirm) errors.push('Password dan konfirmasi harus sama');
+            if (!salutation) errors.push('Salutation wajib dipilih');
+            if (!firstName) errors.push('Nama depan wajib diisi');
+            if (!lastName) errors.push('Nama belakang wajib diisi');
+            if (!countryCode) errors.push('Country code wajib dipilih');
+            if (!phone) errors.push('Nomor HP wajib diisi');
+            if (!birthdate) errors.push('Tanggal lahir wajib diisi');
+            if (!nationality) errors.push('Kewarganegaraan wajib dipilih');
+            if (role === 'Staff' && !document.getElementById('regAirlineCode').value) {
+                errors.push('Kode maskapai wajib dipilih untuk Staff');
+            }
+
+            if (errors.length > 0) {
+                showAlert('registerAlert', 'danger', errors.join('<br>'));
+                return;
+            }
+
+            const memberId = role === 'Staff' 
+                ? `S${Math.floor(Math.random() * 9000 + 1000)}`
+                : `M${Math.floor(Math.random() * 9000 + 1000)}`;
+            
+            showAlert('registerAlert', 'success', `Selamat! Akun Anda telah berhasil dibuat sebagai <strong>${role}</strong><br>Nomor ID: <strong>${memberId}</strong><br>Mengalihkan ke login...`);
+            setTimeout(showLogin, 1500);
+        });
+    </script>
+</body>
+</html>
