@@ -1,0 +1,67 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Edit Klaim{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h5 class="card-title mb-1">Edit Klaim Missing Miles</h5>
+                        <p class="text-muted mb-0">Perbarui data klaim sebelum diverifikasi staf.</p>
+                    </div>
+                    <span class="badge rounded-pill bg-warning text-dark">{{ klaim.status }}</span>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger rounded-4">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Maskapai</label>
+                            {{ form.maskapai }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Kelas Kabin</label>
+                            {{ form.kelas_kabin }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Bandara Asal (IATA)</label>
+                            {{ form.bandara_asal }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Bandara Tujuan (IATA)</label>
+                            {{ form.bandara_tujuan }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tanggal Penerbangan</label>
+                            {{ form.tanggal_penerbangan }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Flight Number</label>
+                            {{ form.flight_number }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nomor Tiket</label>
+                            {{ form.nomor_tiket }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">PNR</label>
+                            {{ form.pnr }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <a href="{% url 'riwayat_klaim' %}" class="btn btn-light">Kembali</a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
