@@ -16,13 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from members.views import list_member, form_member, dashboard, list_identitas, ajukan_klaim, riwayat_klaim, edit_klaim, batalkan_klaim, kelola_klaim, approve_klaim, reject_klaim
+from members.views import list_member, form_member, dashboard, list_identitas, ajukan_klaim, riwayat_klaim, edit_klaim, batalkan_klaim, kelola_klaim, approve_klaim, reject_klaim, login_register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', login_register, name='login_register'),
+    path('dashboard/', dashboard, name='dashboard'),
     path('members/list/', list_member, name='list_member'),
     path('members/add/', form_member, name='form_member'),
-    path('', dashboard, name='dashboard'),
     path('members/identitas/', list_identitas, name='list_identitas'),
     # Klaim URLs
     path('klaim/ajukan/', ajukan_klaim, name='ajukan_klaim'),

@@ -53,6 +53,11 @@ class KlaimForm(forms.ModelForm):
         self.add_bootstrap_classes()
 
 
+def login_register(request):
+    """Halaman login dan registrasi (frontend only)"""
+    return render(request, 'members/login_register.html')
+
+
 def dashboard(request):
     context = {
         'nama': 'Mr. John William Doe',
