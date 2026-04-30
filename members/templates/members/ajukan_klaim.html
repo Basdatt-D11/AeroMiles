@@ -1,0 +1,59 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Ajukan Klaim{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Ajukan Klaim Missing Miles</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.maskapai.id_for_label }}" class="form-label">Maskapai</label>
+                            {{ form.maskapai }}
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="{{ form.bandara_asal.id_for_label }}" class="form-label">Bandara Asal (IATA)</label>
+                            {{ form.bandara_asal }}
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="{{ form.bandara_tujuan.id_for_label }}" class="form-label">Bandara Tujuan (IATA)</label>
+                            {{ form.bandara_tujuan }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.tanggal_penerbangan.id_for_label }}" class="form-label">Tanggal Penerbangan</label>
+                            {{ form.tanggal_penerbangan }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.flight_number.id_for_label }}" class="form-label">Flight Number</label>
+                            {{ form.flight_number }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.nomor_tiket.id_for_label }}" class="form-label">Nomor Tiket</label>
+                            {{ form.nomor_tiket }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.kelas_kabin.id_for_label }}" class="form-label">Kelas Kabin</label>
+                            {{ form.kelas_kabin }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="{{ form.pnr.id_for_label }}" class="form-label">PNR</label>
+                            {{ form.pnr }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajukan Klaim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -152,6 +152,36 @@
             border: none !important;
             color: #42526e !important;
         }
+
+        .modal-content {
+            border-radius: 18px;
+            border: none;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background-color: var(--aero-primary);
+            color: #ffffff;
+            border-bottom: none;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .modal-body {
+            padding: 1.75rem;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--aero-primary);
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -179,7 +209,7 @@
                     <i class="bi bi-people-fill"></i>
                     <span class="nav-text">Kelola Member</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero {% if request.resolver_match.url_name == 'kelola_klaim' %}active-dashboard{% endif %}" href="{% url 'kelola_klaim' %}">
                     <i class="bi bi-airplane-engines-fill"></i>
                     <span class="nav-text">Kelola Klaim</span>
                 </a>
@@ -210,7 +240,8 @@
                     <i class="bi bi-file-earmark-person-fill"></i>
                     <span class="nav-text">Identitas Saya</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero {% if request.resolver_match.url_name == 'riwayat_klaim' %}active-dashboard{% endif %}"
+                    href="{% url 'riwayat_klaim' %}">
                     <i class="bi bi-airplane-engines-fill"></i>
                     <span class="nav-text">Klaim Miles</span>
                 </a>
@@ -218,15 +249,15 @@
                     <i class="bi bi-arrow-left-right"></i>
                     <span class="nav-text">Transfer Miles</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero" href="{% url 'transactions_redeem' %}">
                     <i class="bi bi-gift-fill"></i>
                     <span class="nav-text">Redeem Hadiah</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero" href="{% url 'transactions_buy_package' %}">
                     <i class="bi bi-cart-fill"></i>
                     <span class="nav-text">Beli Package</span>
                 </a>
-                <a class="nav-item-aero" href="#">
+                <a class="nav-item-aero" href="{% url 'transactions_tier_info' %}">
                     <i class="bi bi-award-fill"></i>
                     <span class="nav-text">Info Tier</span>
                 </a>
@@ -246,6 +277,16 @@
 </nav>
 
 <div class="container py-4">
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show rounded-4" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     {% block content %}{% endblock %}
 </div>
 
