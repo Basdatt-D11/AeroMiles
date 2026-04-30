@@ -120,3 +120,25 @@ def kelola_hadiah(request):
         ]
     }
     return render(request, 'members/kelola_hadiah.html', context)
+
+
+def kelola_mitra(request):
+    context = {
+        'role': 'Staff',
+        'nama': 'Mr. Admin Aero',
+        'mitra_list': [
+            {
+                'email': 'partner@traveloka.com',
+                'id_penyedia': 'PYD-001',
+                'nama_mitra': 'TravelokaPartner',
+                'tanggal_kerja_sama': '2023-01-15'
+            },
+            {
+                'email': 'partner@plazapremium.com',
+                'id_penyedia': 'PYD-002',
+                'nama_mitra': 'Plaza Premium',
+                'tanggal_kerja_sama': '2023-06-01'
+            }
+        ]
+    }
+    return render(request, 'members/kelola_mitra.html', context)

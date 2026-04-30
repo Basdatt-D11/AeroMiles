@@ -26,6 +26,7 @@ from members.views import (
     register_page,
     profile_settings,
     kelola_hadiah,
+    kelola_mitra,
 )
 
 urlpatterns = [
@@ -39,4 +40,5 @@ urlpatterns = [
     path('auth/register/', register_page, name='register_page'),
     path('profile/settings/', profile_settings, name='profile_settings'),
     path('hadiah/kelola/', kelola_hadiah, name='kelola_hadiah'),
+    path('mitra/kelola/', kelola_mitra, name='kelola_mitra'),
 ]
